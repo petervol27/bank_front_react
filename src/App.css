@@ -1,0 +1,125 @@
+.text-purple {
+  color: #7950f2;
+}
+
+.bg-purple {
+  background-color: #7950f2;
+}
+
+.secondary-purple {
+  color: #c9b9fa;
+}
+
+.login-txt:link,
+.login-txt:visited,
+.login-txt:active {
+  color: whitesmoke;
+  transition: all 0.3s;
+  border-radius: 5px;
+}
+.login-txt:hover,
+.join-btn:hover,
+.join-btn:active,
+.login-txt:focus {
+  color: #94d82d !important;
+  font-weight: 600 !important;
+  background-color: #461f93 !important;
+  transform: scale(1.1) !important;
+}
+
+.hero {
+  background-image: url('../images/hero-img.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: 0px 30px;
+  padding: 300px;
+}
+
+.join-btn {
+  font-size: 22px;
+  font-weight: 500;
+  color: whitesmoke;
+}
+.hero div {
+  position: absolute;
+  top: 30%;
+  right: 35%;
+}
+
+.hero-heading {
+  font-size: 50px;
+  color: #461f93 !important;
+  font-weight: 800;
+}
+.hero-link:link,
+.hero-link:active,
+.hero-link:visited {
+  color: #868e96;
+}
+.hero-link:hover {
+  color: black;
+}
+
+.about-list li::before {
+  content: '✓';
+  color: #003366;
+  padding-right: 8px;
+}
+.form-btn {
+  color: white;
+}
+.form-btn:hover,
+.form-btn:active,
+.form-btn:focus {
+  background: #5f3dc4 !important;
+  color: white !important;
+}
+.table-hover tbody tr:hover {
+  cursor: pointer;
+}
+.table-hover tbody .accordion-collapse.collapse:hover {
+  cursor: default;
+}
+.branch-img {
+  height: 250px;
+}
+
+.nav-link:hover,
+.nav-link:active,
+.navbar-nav .nav-link.active {
+  color: #94d82d;
+}
+
+@media (max-width: 576px) {
+  main {
+    max-width: 100vw;
+    overflow-x: hidden;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+
+  #registerForm,
+  #loginForm {
+    width: 75% !important;
+  }
+  .hero {
+    margin: 10px;
+    padding: 100px;
+  }
+  .hero div {
+    top: 0 !important;
+    left: -40px !important;
+    /* right: 50% !important; */
+  }
+  .contact-details {
+    width: 100% !important;
+  }
+  .user-info h1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .main-accounts {
+    padding: 0;
+  }
+}
