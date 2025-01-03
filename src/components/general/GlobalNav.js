@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom';
+
 function GlobalNav() {
   return (
     <header>
-      <nav class="navbar navbar-expand-sm bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="../../../index.html">
-            <h3 class="text-purple">Neo Banking</h3>
-          </a>
+      <nav className="navbar navbar-expand-sm bg-light">
+        <div className="container-fluid">
+          <Link className="navbar-brand" to={'/'}>
+            <h3 className="text-purple">Neo Banking</h3>
+          </Link>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
@@ -15,37 +17,37 @@ function GlobalNav() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link text-purple" href="./register.html">
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <Link className="nav-link text-purple" to={'/register'}>
                   Register
-                </a>
+                </Link>
               </li>
-              <li class="nav-item">
-                <a class="nav-link text-purple" href="./branches.html">
+              <li className="nav-item">
+                <Link className="nav-link text-purple" to={'/branches'}>
                   Branches
-                </a>
+                </Link>
               </li>
-              <li class="nav-item">
-                <a class="nav-link text-purple active" href="./about.html">
+              <li className="nav-item">
+                <Link className="nav-link text-purple " to={'/about'}>
                   About Us
-                </a>
+                </Link>
               </li>
-              <li class="nav-item me-3">
-                <a class="nav-link text-purple" href="./contact.html">
+              <li className="nav-item me-3">
+                <Link className="nav-link text-purple" to={'/contact'}>
                   Contact
-                </a>
+                </Link>
               </li>
-              <li class="nav-item mt-2">
-                <a
-                  class="nav-link px-5 py-2 bg-purple login-txt d-inline"
-                  href="./login.html"
+              <li className="nav-item mt-2">
+                <Link
+                  className="nav-link px-5 py-2 bg-purple login-txt d-inline"
+                  to={'/login'}
                 >
                   Login
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

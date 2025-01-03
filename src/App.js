@@ -6,6 +6,10 @@ import Home from './components/general/Home';
 import Branches from './components/general/Branches';
 import About from './components/general/About';
 import Contact from './components/general/Contact';
+import GlobalNav from './components/general/GlobalNav';
+import GlobalFooter from './components/general/GlobalFooter';
+import Register from './components/general/Register';
+import Login from './components/general/Login';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,12 +17,25 @@ function App() {
     <>
       <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/about" element={<About />}></Route>
-            <Route path="/branches" element={<Branches />}></Route>
-            <Route path="/contact" element={<Contact />}></Route>
-          </Routes>
+          {!isAuthenticated && (
+            <>
+              <GlobalNav />
+              <Routes>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/about" element={<About />}></Route>
+                <Route path="/branches" element={<Branches />}></Route>
+                <Route path="/contact" element={<Contact />}></Route>
+                <Route path="/register" element={<Register />}></Route>
+                <Route path="/login" element={<Login />}></Route>
+              </Routes>
+              <GlobalFooter />
+            </>
+          )}
+          {isAuthenticated && (
+            <>
+              <h1>Testing authenticated</h1>
+            </>
+          )}
         </BrowserRouter>
       </AuthContext.Provider>
     </>

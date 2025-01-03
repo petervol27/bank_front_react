@@ -1,9 +1,9 @@
 function About() {
   return (
     <main>
-      <div class="container my-5">
-        <h1 class="text-purple mb-4">About Us</h1>
-        <p class="lead text-secondary">
+      <div className="container my-5">
+        <h1 className="text-purple mb-4">About Us</h1>
+        <p className="lead text-secondary">
           Welcome to Neo Banking, where modern financial solutions meet
           exceptional customer care. Neo Banking is committed to transforming
           the way you manage your finances by offering an innovative, secure,
@@ -14,9 +14,9 @@ function About() {
           tools to reach your financial goals.
         </p>
 
-        <div class="section mb-5">
-          <h2 class="text-purple">Our Mission</h2>
-          <p class="text-muted">
+        <div className="section mb-5">
+          <h2 className="text-purple">Our Mission</h2>
+          <p className="text-muted">
             At Neo Banking, we strive to create a bank that doesn’t just manage
             your money but enhances your life. Our mission is to provide you
             with smart, convenient, and intuitive banking solutions that keep
@@ -26,9 +26,9 @@ function About() {
           </p>
         </div>
 
-        <div class="section mb-5">
-          <h2 class="text-purple">Our Values</h2>
-          <ul class="list-unstyled text-muted">
+        <div className="section mb-5">
+          <h2 className="text-purple">Our Values</h2>
+          <ul className="list-unstyled text-muted">
             <li>
               <strong>Customer-Centric Service</strong>: Our customers come
               first. We listen, understand, and adapt to your unique needs to
@@ -47,9 +47,9 @@ function About() {
           </ul>
         </div>
 
-        <div class="section mb-5">
-          <h2 class="text-purple">What We Offer</h2>
-          <ul class="list-unstyled text-muted about-list">
+        <div className="section mb-5">
+          <h2 className="text-purple">What We Offer</h2>
+          <ul className="list-unstyled text-muted about-list">
             <li>
               <strong>Account Services</strong>: Easily manage and access your
               accounts with our secure and user-friendly interface, available
@@ -78,9 +78,9 @@ function About() {
           </ul>
         </div>
 
-        <div class="section mb-5">
-          <h2 class="text-purple">Why Choose Neo Banking?</h2>
-          <p class="text-muted">
+        <div className="section mb-5">
+          <h2 className="text-purple">Why Choose Neo Banking?</h2>
+          <p className="text-muted">
             We understand that banking is personal, and that’s why we’re
             committed to providing a service that’s accessible, secure, and
             responsive. Neo Banking combines the best of technology with
@@ -90,7 +90,7 @@ function About() {
           </p>
         </div>
 
-        <p class="text-secondary">
+        <p className="text-secondary">
           Thank you for trusting Neo Banking as your financial partner.
           Together, let’s build a brighter, more secure future.
         </p>
