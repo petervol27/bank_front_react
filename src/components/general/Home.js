@@ -1,26 +1,22 @@
+import { Link } from 'react-router-dom';
+
 function Home() {
   return (
     <main>
-      <div class="hero position-relative">
-        <div class="container text-center d-flex flex-column align-items-center justify-content-center gap-3 ms-5">
-          <h1 class="text-white hero-heading">Stay Digital</h1>
-          <a
-            class="btn bg-purple join-btn px-5"
-            href="./assets/html/global/register.html"
-          >
+      <div className="hero position-relative">
+        <div className="container text-center d-flex flex-column align-items-center justify-content-center gap-3 ms-5">
+          <h1 className="text-white hero-heading">Stay Digital</h1>
+          <Link className="btn bg-purple join-btn px-5" to="./register">
             Join Us Now!
-          </a>
-          <a
-            class="text-decoration-none hero-link"
-            href="./assets/html/global/login.html"
-          >
+          </Link>
+          <Link className="text-decoration-none hero-link" to="./login">
             Already have an account?
-          </a>
+          </Link>
         </div>
       </div>
-      <div class="my-4 text-center px-3">
-        <h1 class="text-purple">Our Services</h1>
-        <p class="lead text-secondary">
+      <div className="my-4 text-center px-3">
+        <h1 className="text-purple">Our Services</h1>
+        <p className="lead text-secondary">
           Welcome to Neo Banking, where modern financial solutions meet
           exceptional customer care. Neo Banking is committed to transforming
           the way you manage your finances by offering an innovative, secure,

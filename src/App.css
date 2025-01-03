@@ -28,7 +28,7 @@
 }
 
 .hero {
-  background-image: url('./images/hero-img.jpg');
+  background-image: url('/public/images/hero-img.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -99,8 +99,7 @@
     padding: 1rem;
   }
 
-  #registerForm,
-  #loginForm {
+  .global-form {
     width: 75% !important;
   }
   .hero {

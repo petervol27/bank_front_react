@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function GlobalNav() {
   return (
     <header>
       <nav className="navbar navbar-expand-sm bg-light">
         <div className="container-fluid">
-          <Link className="navbar-brand" to={'/'}>
+          <NavLink className="navbar-brand" to={'/'}>
             <h3 className="text-purple">Neo Banking</h3>
-          </Link>
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -22,32 +22,32 @@ function GlobalNav() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <Link className="nav-link text-purple" to={'/register'}>
+                <NavLink className="nav-link text-purple" to={'/register'}>
                   Register
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-purple" to={'/branches'}>
+                <NavLink className="nav-link text-purple" to={'/branches'}>
                   Branches
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-purple " to={'/about'}>
+                <NavLink className="nav-link text-purple " to={'/about'}>
                   About Us
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item me-3">
-                <Link className="nav-link text-purple" to={'/contact'}>
+                <NavLink className="nav-link text-purple" to={'/contact'}>
                   Contact
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item mt-2">
-                <Link
+                <NavLink
                   className="nav-link px-5 py-2 bg-purple login-txt d-inline"
                   to={'/login'}
                 >
                   Login
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>
