@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Home from './components/general/Home';
 import Branches from './components/general/Branches';
 import About from './components/general/About';
+import Contact from './components/general/Contact';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/branches" element={<Branches />}></Route>
+            <Route path="/contact" element={<Contact />}></Route>
           </Routes>
         </BrowserRouter>
       </AuthContext.Provider>
