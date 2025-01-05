@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { register } from '../../scripts/api';
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../AuthContext';
 
 function Register() {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [error, setError] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -11,9 +15,8 @@ function Register() {
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [citizenNum, setCitizenNum] = useState('');
-  const test = (e) => {
+  const attemptRegister = (e) => {
     e.preventDefault();
-    console.log('testing register');
     const newUser = {
       username: username,
       password: password,
@@ -25,7 +28,14 @@ function Register() {
       email: email,
     };
     register(newUser).then((response) => {
-      console.log(response);
+      if (response.status === 'failure') {
+        setError(response.message);
+        return;
+      } else {
+        alert(response.message);
+        setIsAuthenticated(true);
+        navigate('/account');
+      }
     });
   };
   return (
@@ -33,7 +43,7 @@ function Register() {
       <h1>Register</h1>
       <form
         className="p-3 m-3 w-25 mx-auto bg-light global-form"
-        onSubmit={(e) => test(e)}
+        onSubmit={(e) => attemptRegister(e)}
       >
         <div>
           <label className="form-label" htmlFor="username">
@@ -156,71 +166,3 @@ function Register() {
 }
 
 export default Register;
-{
-  /* <script>
-  const errortxt = document.getElementById('errortxt');
-  const form = document.getElementById('registerForm'); 0
-  const register = async (event) => {
-    event.preventDefault();
-    errortxt.innerHTML = '';
-    const formData = new FormData(form);
-    const username = formData.get('username');
-    const password = formData.get('password');
-    const phone = formData.get('phone');
-    const fname = formData.get('fname');
-    const lname = formData.get('lname');
-    const address = formData.get('address');
-    const citizenNum = formData.get('citizen_num');
-    const email = formData.get('email');
-    const registerData = {
-      username: username,
-      password: password,
-      phone: phone,
-      fname: fname,
-      lname: lname,
-      address: address,
-      citizen_num: citizenNum,
-      email: email,
-    };
-    const formValidationEmpty = Object.values(registerData).every(
-      (value) => value && value.trim() !== ''
-    );
-    if (!formValidationEmpty) {
-      errortxt.innerHTML = 'You must fill in all fields!';
-      return;
-    }
-    try {
-      const response = await axios.post(
-        'https://bank-zdpd.onrender.com/users/register/',
-        registerData
-      );
-      alert('Thank you for joining us, we are creating your account now!');
-
-      const loginResponse = await axios.post(
-        'https://bank-zdpd.onrender.com/users/login/',
-        {
-          username: username,
-          password: password,
-        }
-      );
-      const access = loginResponse.data.access;
-      const refresh = loginResponse.data.refresh;
-      localStorage.setItem('access_token', access);
-      localStorage.setItem('refresh_token', refresh);
-      const createAccount = await axios.post(
-        'https://bank-zdpd.onrender.com/accounts/auto_create/',
-        {},
-        {
-          headers: { Authorization: `Bearer ${access}` },
-        }
-      );
-      console.log(createAccount.data);
-      window.location.href = '../app/account.html';
-    } catch (error) {
-      console.log(error);
-      errortxt.innerHTML = 'Something went wrong please check Credentials!';
-    }
-  };
-  form.addEventListener('submit', register);
-</script> */
-}

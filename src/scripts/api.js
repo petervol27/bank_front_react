@@ -23,9 +23,33 @@ export const login = async (username, password) => {
 };
 
 export const register = async (newUser) => {
-  console.log('registering');
-  console.log(newUser);
-  return 'nigga';
+  try {
+    await axios.post(`${HOST}users/register/`, newUser);
+    const loginResponse = await axios.post(`${HOST}users/login/`, {
+      username: newUser.username,
+      password: newUser.password,
+    });
+    const access = loginResponse.data.access;
+    const refresh = loginResponse.data.refresh;
+    localStorage.setItem('access_token', access);
+    localStorage.setItem('refresh_token', refresh);
+    await axios.post(
+      `${HOST}accounts/auto_create/`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${access}` },
+      }
+    );
+    return {
+      status: 'success',
+      message: 'You are now being redirected to your account',
+    };
+  } catch (error) {
+    return {
+      status: 'failure',
+      message: 'Something went wrong please check credentials',
+    };
+  }
 };
 // -------------------------------------------------------------
 // Account
