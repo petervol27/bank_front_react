@@ -33,10 +33,7 @@ function AppNav() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <NavLink
-                  className="nav-link text-purple active"
-                  to={'/account'}
-                >
+                <NavLink className="nav-link text-purple" to={'/account'}>
                   Overview
                 </NavLink>
               </li>
@@ -50,7 +47,7 @@ function AppNav() {
                   My Cards
                 </NavLink>
               </li>
-              <li className="nav-item mt-2">
+              <li className="nav-item ms-2">
                 <button
                   className="nav-link bg-purple login-txt d-inline px-5 py-2 logout-btn"
                   onClick={() => logout()}

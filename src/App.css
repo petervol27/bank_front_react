@@ -12,7 +12,8 @@
 
 .login-txt:link,
 .login-txt:visited,
-.login-txt:active {
+.login-txt:active,
+.logout-btn {
   color: whitesmoke;
   transition: all 0.3s;
   border-radius: 5px;

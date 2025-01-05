@@ -1,129 +1,62 @@
 function Transactions() {
   return (
-    <div>
-      <header>
-        <nav class="navbar navbar-expand-sm bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="./account.html">
-              <h3 class="text-purple">Neo Banking</h3>
-            </a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                  <a class="nav-link text-purple" href="./account.html">
-                    Overview
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-purple" href="./loans.html">
-                    My Loans
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-purple" href="./cards.html">
-                    My Cards
-                  </a>
-                </li>
-                <li class="nav-item mt-2">
-                  <a
-                    class="nav-link bg-purple login-txt d-inline px-5 py-2"
-                    id="logoutBtn"
-                    href="#"
-                  >
-                    Logout
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </header>
-      <main>
-        <div class="text-center my-2">
-          <div
-            class="px-3 d-flex justify-content-between align-items-center bg-light gap-3"
-            id="accountInfo"
-          ></div>
-          <div class="bg-light my-2">
-            <form>
-              <label for="transactionType " class="fw-bold">
-                Choose Type Of Transaction
-              </label>
-              <select
-                id="transactionType"
-                class="form-select w-25 mx-auto"
-              ></select>
-            </form>
-          </div>
-          <form id="transactionForm" class="d-none">
-            <div id="formContent" class="p-3 border rounded"></div>
+    <main>
+      <div className="text-center my-2">
+        <div
+          className="px-3 d-flex justify-content-between align-items-center bg-light gap-3"
+          id="accountInfo"
+        ></div>
+        <div className="bg-light my-2">
+          <form>
+            <label for="transactionType " className="fw-bold">
+              Choose Type Of Transaction
+            </label>
+            <select
+              id="transactionType"
+              className="form-select w-25 mx-auto"
+            ></select>
           </form>
         </div>
-        <div
-          class="modal fade"
-          id="transactionModal"
-          tabindex="-1"
-          aria-labelledby="transactionModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="transactionModalLabel">
-                  Transaction Details
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body" id="modalContent"></div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                  onclick="window.location.href='account.html'"
-                >
-                  Close
-                </button>
-              </div>
+        <form id="transactionForm" className="d-none">
+          <div id="formContent" className="p-3 border rounded"></div>
+        </form>
+      </div>
+      <div
+        className="modal fade"
+        id="transactionModal"
+        tabindex="-1"
+        aria-labelledby="transactionModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="transactionModalLabel">
+                Transaction Details
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body" id="modalContent"></div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onclick="window.location.href='account.html'"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
-        <div id="check"></div>
-      </main>
-      <footer class="bg-light p-3 text-center">
-        <h1 class="text-purple">Neo Banking</h1>
-        <ul class="list-group w-25 mx-auto mt-3 contact-details">
-          <li class="list-group-item">
-            Email: <strong>NeoBanking@neo.com</strong>
-          </li>
-          <li class="list-group-item">
-            Phone: <strong>+972551472398</strong>
-          </li>
-          <li class="list-group-item">
-            Address:
-            <strong>
-              HaGanavim 15, Kiryat Ganav 752-198 , Gush Dan, Israel
-            </strong>
-          </li>
-        </ul>
-      </footer>
-    </div>
+      </div>
+      <div id="check"></div>
+    </main>
   );
 }
 
@@ -140,7 +73,7 @@ export default Transactions;
     const account = response.data.account;
     const userName = response.data.user.fname + ' ' + response.data.user.lname;
     accountInfo.innerHTML = `
-            <h3 class="text-purple">Hello, <strong >${userName}</strong></h3>
+            <h3 className="text-purple">Hello, <strong >${userName}</strong></h3>
             <h4>Account: <span class="text-purple">${
               account.account_num
             }</span></h4>

@@ -23,7 +23,10 @@ function GlobalFooter() {
         </li>
         <li className="list-group-item">
           Address:
-          <strong>HaGanavim 15, Kiryat Ganav 752-198 , Gush Dan, Israel</strong>
+          <strong>
+            {' '}
+            HaGanavim 15, Kiryat Ganav 752-198 , Gush Dan, Israel
+          </strong>
         </li>
       </ul>
     </footer>

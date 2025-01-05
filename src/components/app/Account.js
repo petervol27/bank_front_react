@@ -1,76 +1,57 @@
 function Account() {
   return (
-    <div>
-      <main className="main-accounts">
-        <div
-          className="ms-3 mt-3 text-purple d-flex justify-content-between align-items-center user-info"
-          id="accountHeading"
-        ></div>
-        <div className="my-3 bg-light text-center p-3" id="accountInfo"></div>
-        <form
-          className="container d-flex justify-content-center align-items-center gap-2 mb-3"
-          id="withdrawDepositForm"
-        >
-          <input
-            type="number"
-            className="form-control w-25"
-            placeholder="Enter Amount Here"
-            id="amountInput"
-            required
-          />
+    <main className="main-accounts">
+      <div
+        className="ms-3 mt-3 text-purple d-flex justify-content-between align-items-center user-info"
+        id="accountHeading"
+      ></div>
+      <div className="my-3 bg-light text-center p-3" id="accountInfo"></div>
+      <form
+        className="container d-flex justify-content-center align-items-center gap-2 mb-3"
+        id="withdrawDepositForm"
+      >
+        <input
+          type="number"
+          className="form-control w-25"
+          placeholder="Enter Amount Here"
+          id="amountInput"
+          required
+        />
 
-          <button
-            className="btn btn-danger"
-            type="submit"
-            name="action"
-            value="withdraw"
-          >
-            Withdraw
-          </button>
-          <button
-            className="btn btn-primary"
-            type="submit"
-            name="action"
-            value="deposit"
-          >
-            Deposit
-          </button>
-        </form>
-        <div className="accordion" id="tableAccordion">
-          <div className="table-responsive-lg">
-            <table className="table table-hover">
-              <thead className="table-active">
-                <tr>
-                  <th>Date</th>
-                  <th>Action</th>
-                  <th>Expanse</th>
-                  <th>Income</th>
-                  <th>Balance</th>
-                </tr>
-              </thead>
-              <tbody id="tableBody"></tbody>
-            </table>
-          </div>
+        <button
+          className="btn btn-danger"
+          type="submit"
+          name="action"
+          value="withdraw"
+        >
+          Withdraw
+        </button>
+        <button
+          className="btn btn-primary"
+          type="submit"
+          name="action"
+          value="deposit"
+        >
+          Deposit
+        </button>
+      </form>
+      <div className="accordion" id="tableAccordion">
+        <div className="table-responsive-lg">
+          <table className="table table-hover">
+            <thead className="table-active">
+              <tr>
+                <th>Date</th>
+                <th>Action</th>
+                <th>Expanse</th>
+                <th>Income</th>
+                <th>Balance</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
         </div>
-      </main>
-      <footer className="bg-light p-3 text-center">
-        <h1 className="text-purple">Neo Banking</h1>
-        <ul className="list-group w-25 mx-auto mt-3 contact-details">
-          <li className="list-group-item">
-            Email: <strong>NeoBanking@neo.com</strong>
-          </li>
-          <li className="list-group-item">
-            Phone: <strong>+972551472398</strong>
-          </li>
-          <li className="list-group-item">
-            Address:
-            <strong>
-              HaGanavim 15, Kiryat Ganav 752-198 , Gush Dan, Israel
-            </strong>
-          </li>
-        </ul>
-      </footer>
-    </div>
+      </div>
+    </main>
   );
 }
 

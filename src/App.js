@@ -12,6 +12,8 @@ import Register from './components/general/Register';
 import Login from './components/general/Login';
 import AppNav from './components/app/AppNav';
 import Account from './components/app/Account';
+import Loans from './components/app/Loans';
+import Cards from './components/app/Cards';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,7 +46,10 @@ function App() {
               <AppNav />
               <Routes>
                 <Route path="/account" element={<Account />}></Route>
+                <Route path="/loans" element={<Loans />}></Route>
+                <Route path="/cards" element={<Cards />}></Route>
               </Routes>
+              <GlobalFooter />
             </>
           )}
         </BrowserRouter>
