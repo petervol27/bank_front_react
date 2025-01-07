@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import './App.css';
 import AuthContext from './AuthContext';
 import { useEffect, useState } from 'react';
@@ -14,9 +20,14 @@ import AppNav from './components/app/AppNav';
 import Account from './components/app/Account';
 import Loans from './components/app/Loans';
 import Cards from './components/app/Cards';
+import Transactions from './components/app/Transactions';
+import AccountContext from './AccountContext';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [accountNum, setAccountNum] = useState('');
+  const [accountBranch, setAccountBranch] = useState('');
+  const [accountBalance, setAccountBalance] = useState('');
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     if (token) {
@@ -41,17 +52,32 @@ function App() {
               <GlobalFooter />
             </>
           )}
-          {isAuthenticated && (
-            <>
-              <AppNav />
-              <Routes>
-                <Route path="/account" element={<Account />}></Route>
-                <Route path="/loans" element={<Loans />}></Route>
-                <Route path="/cards" element={<Cards />}></Route>
-              </Routes>
-              <GlobalFooter />
-            </>
-          )}
+          <AccountContext.Provider
+            value={{
+              accountNum,
+              setAccountNum,
+              accountBranch,
+              setAccountBranch,
+              accountBalance,
+              setAccountBalance,
+            }}
+          >
+            {isAuthenticated && (
+              <>
+                <AppNav />
+                <Routes>
+                  <Route path="/account" element={<Account />}></Route>
+                  <Route path="/loans" element={<Loans />}></Route>
+                  <Route path="/cards" element={<Cards />}></Route>
+                  <Route
+                    path="/transactions"
+                    element={<Transactions />}
+                  ></Route>
+                </Routes>
+                <GlobalFooter />
+              </>
+            )}
+          </AccountContext.Provider>
         </BrowserRouter>
       </AuthContext.Provider>
     </>

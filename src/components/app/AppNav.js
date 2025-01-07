@@ -1,9 +1,14 @@
 import { useContext, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import AuthContext from '../../AuthContext';
+import AccountContext from '../../AccountContext';
+import { capitalize, fetchAccount } from '../../scripts/api';
 
 function AppNav() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { accountNum, setAccountNum } = useContext(AccountContext);
+  const { accountBranch, setAccountBranch } = useContext(AccountContext);
+  const { accountBalance, setAccountBalance } = useContext(AccountContext);
   const navigate = useNavigate();
   const logout = () => {
     localStorage.removeItem('access_token');
@@ -12,6 +17,17 @@ function AppNav() {
     setIsAuthenticated(false);
     navigate('/');
   };
+  useEffect(() => {
+    fetchAccount().then((response) => {
+      const userName =
+        capitalize(response.user.fname) + ' ' + capitalize(response.user.lname);
+      localStorage.setItem('user_name', userName);
+      setAccountNum(response.account.account_num);
+      setAccountBranch(response.account.branch);
+      setAccountBalance(response.account.balance);
+    });
+  });
+
   return (
     <header>
       <nav className="navbar navbar-expand-sm bg-light">

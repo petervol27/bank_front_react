@@ -1,8 +1,12 @@
+// General + imports
 import axios from 'axios';
 const HOST = 'https://bank-zdpd.onrender.com/';
+export const capitalize = (word) =>
+  word.charAt(0).toUpperCase() + word.slice(1);
 // const tokenHeader = {
 //   headers: { Authorization: `Bearer ${access}` },
 // };
+
 // -------------------------------------------------------------
 // Branches
 export const getBranches = async () => {
@@ -52,11 +56,60 @@ export const register = async (newUser) => {
   }
 };
 // -------------------------------------------------------------
-// Account
+// Accounts
+export const fetchAccountDetails = async () => {
+  const access = localStorage.getItem('access_token');
+  const response = await axios.get(`${HOST}accounts/`, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+  return response.data;
+};
+export const fetchAccount = async () => {
+  const access = localStorage.getItem('access_token');
+  const response = await axios.get(`${HOST}accounts/`, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+  return response.data;
+};
+export const fetchAccounts = async () => {
+  const access = localStorage.getItem('access_token');
+  const accountResponse = await axios.get(`${HOST}accounts/all/`, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+  const userResponse = await axios.get(`${HOST}users/all/`, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+  const accounts = accountResponse.data;
+  const users = userResponse.data;
+  let filteredAccounts = [];
+  const userMap = users.reduce((map, user) => {
+    map[user.id] = user;
+    return map;
+  }, {});
+  accounts.forEach((account) => {
+    const user = userMap[account.user];
+    if (user) {
+      filteredAccounts.push({
+        id: account.id,
+        fname: capitalize(user.first_name),
+        lname: capitalize(user.last_name),
+        account_num: account.account_num,
+      });
+    }
+  });
+  return filteredAccounts;
+};
 // -------------------------------------------------------------
 // Loan
 // -------------------------------------------------------------
 // Credit
 // -------------------------------------------------------------
-// Transfers
+// Transactions
+
+// export const fetchTransactionTypes = async () => {
+//   const response = await axios.get(`${HOST}transactions/types/`);
+//   const types = response.data;
+//   return types;
+// };
+
 // -------------------------------------------------------------
