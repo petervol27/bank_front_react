@@ -57,13 +57,6 @@ export const register = async (newUser) => {
 };
 // -------------------------------------------------------------
 // Accounts
-export const fetchAccountDetails = async () => {
-  const access = localStorage.getItem('access_token');
-  const response = await axios.get(`${HOST}accounts/`, {
-    headers: { Authorization: `Bearer ${access}` },
-  });
-  return response.data;
-};
 export const fetchAccount = async () => {
   const access = localStorage.getItem('access_token');
   const response = await axios.get(`${HOST}accounts/`, {
@@ -105,11 +98,15 @@ export const fetchAccounts = async () => {
 // Credit
 // -------------------------------------------------------------
 // Transactions
-
-// export const fetchTransactionTypes = async () => {
-//   const response = await axios.get(`${HOST}transactions/types/`);
-//   const types = response.data;
-//   return types;
-// };
+export const fetchHistory = async () => {
+  const access = localStorage.getItem('access_token');
+  const response = await axios.get(`${HOST}transactions/history/`, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+  const data = await fetchAccount();
+  const account = data.account;
+  const transactions = response.data;
+  return { transactions: [...transactions], account: account };
+};
 
 // -------------------------------------------------------------

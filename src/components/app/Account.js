@@ -1,17 +1,25 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AccountContext from '../../AccountContext';
+import AuthContext from '../../AuthContext';
+import { capitalize, fetchHistory } from '../../scripts/api';
 
 function Account() {
   const { accountNum, setAccountNum } = useContext(AccountContext);
   const { accountBranch, setAccountBranch } = useContext(AccountContext);
   const { accountBalance, setAccountBalance } = useContext(AccountContext);
-
+  const { username, setUsername } = useContext(AuthContext);
+  const [transactions, setTransactions] = useState([]);
+  useEffect(() => {
+    fetchHistory().then((response) => {
+      console.log(response);
+    });
+  });
   return (
     <main className="main-accounts">
       <div className="ms-3 mt-3 text-purple d-flex justify-content-between align-items-center user-info">
         <h1>
-          Welcome, <strong>{localStorage.getItem('user_name')}!</strong>
+          Welcome, <strong>{username}!</strong>
         </h1>
         <Link
           className="btn bg-purple login-txt text-white me-3"
@@ -78,7 +86,38 @@ function Account() {
                 <th>Balance</th>
               </tr>
             </thead>
-            <tbody id="tableBody"></tbody>
+            <tbody>
+              {/* {transactions.map((transaction) => {
+                return (
+                  <div>
+                    <tr
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseRow${transaction.id}"
+                      aria-expanded="false"
+                      aria-controls="collapseRow${transaction.id}"
+                    >
+                      <td class="fw-bold">${transaction.formatted_date}</td>
+                      <td>${capitalize(transaction.transaction_type)}</td>$
+                      {transaction.reciever_account == account.id
+                        ? `<td class="text-danger"></td><td class="text-success">${transaction.amount}</td><td class="fw-bold">${transaction.reciever_new_balance}</td>`
+                        : `<td class="text-danger">${transaction.amount}</td><td class="text-success"></td><td class="fw-bold">${transaction.sender_new_balance}</td>`}
+                    </tr>
+                    <tr
+                      id="collapseRow${transaction.id}"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headingOne"
+                      data-bs-parent="#tableAccordion"
+                    >
+                      <td colspan="5">
+                        <div class="p-3">
+                          <strong>Details:</strong> ${transaction.details}
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
+                );
+              })} */}
+            </tbody>
           </table>
         </div>
       </div>

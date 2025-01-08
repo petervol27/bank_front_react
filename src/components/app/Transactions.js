@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import AccountContext from '../../AccountContext';
 import { fetchAccounts } from '../../scripts/api';
 import TransactionForm from './TransactionForm';
+import AuthContext from '../../AuthContext';
 function Transactions() {
   const { accountNum } = useContext(AccountContext);
   const { accountBalance } = useContext(AccountContext);
@@ -9,6 +10,7 @@ function Transactions() {
   const handleTransactionType = (e) => {
     setTransactionType(e.target.value);
   };
+  const { username, setUsername } = useContext(AuthContext);
   return (
     <main>
       <div className="text-center my-2">
@@ -17,7 +19,7 @@ function Transactions() {
           id="accountInfo"
         >
           <h3 className="text-purple">
-            Hello, <strong>{localStorage.getItem('user_name')}</strong>
+            Hello, <strong>{username}</strong>
           </h3>
           <h4>
             Account: <span className="text-purple">{accountNum}</span>

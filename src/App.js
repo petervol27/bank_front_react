@@ -28,6 +28,7 @@ function App() {
   const [accountNum, setAccountNum] = useState('');
   const [accountBranch, setAccountBranch] = useState('');
   const [accountBalance, setAccountBalance] = useState('');
+  const [username, setUsername] = useState('');
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     if (token) {
@@ -36,7 +37,9 @@ function App() {
   }, []);
   return (
     <>
-      <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+      <AuthContext.Provider
+        value={{ isAuthenticated, setIsAuthenticated, username, setUsername }}
+      >
         <BrowserRouter>
           {!isAuthenticated && (
             <>

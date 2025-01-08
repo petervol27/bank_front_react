@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { username, setUsername } = useContext(AuthContext);
   const [error, setError] = useState('');
   const attemptLogin = (e) => {
     e.preventDefault();
