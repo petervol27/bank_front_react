@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import AccountContext from '../../AccountContext';
-import { fetchAccounts } from '../../scripts/api';
 import TransactionForm from './TransactionForm';
 import AuthContext from '../../AuthContext';
 function Transactions() {
@@ -11,6 +10,17 @@ function Transactions() {
     setTransactionType(e.target.value);
   };
   const { username, setUsername } = useContext(AuthContext);
+  const [modalContent, setModalContent] = useState('');
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = (content) => {
+    setModalContent(content);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   return (
     <main>
       <div className="text-center my-2">
@@ -36,7 +46,7 @@ function Transactions() {
         </div>
         <div className="bg-light my-2">
           <form>
-            <label htmlFor="transactionType " className="fw-bold">
+            <label htmlFor="transactionType" className="fw-bold">
               Choose Type Of Transaction
             </label>
             <select
@@ -52,49 +62,43 @@ function Transactions() {
             </select>
           </form>
         </div>
-        {/* <form id="transactionForm" className="d-none">
-          <div id="formContent" className="p-3 border rounded"></div>
-        </form> */}
-        {transactionType === '' ? (
-          ''
-        ) : (
-          <TransactionForm type={transactionType} />
+        {transactionType && (
+          <TransactionForm
+            type={transactionType}
+            onFormSubmit={handleShowModal}
+          />
         )}
-      </div>
-      {/* <div
-        className="modal fade"
-        id="transactionModal"
-        tabIndex="-1"
-        aria-labelledby="transactionModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="transactionModalLabel">
-                Transaction Details
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body" id="modalContent"></div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
+
+        {/* Modal */}
+        {showModal && (
+          <div className="modal" style={{ display: 'block' }}>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Transaction Details</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={handleCloseModal}
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <p>{modalContent}</p>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleCloseModal}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
-      <div id="check"></div> */}
     </main>
   );
 }

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AccountContext from '../../AccountContext';
 import AuthContext from '../../AuthContext';
@@ -10,11 +10,13 @@ function Account() {
   const { accountBalance, setAccountBalance } = useContext(AccountContext);
   const { username, setUsername } = useContext(AuthContext);
   const [transactions, setTransactions] = useState([]);
+  const [accountId, setAccountId] = useState('');
   useEffect(() => {
     fetchHistory().then((response) => {
-      console.log(response);
+      setTransactions(response.transactions);
+      setAccountId(response.account.id);
     });
-  });
+  }, []);
   return (
     <main className="main-accounts">
       <div className="ms-3 mt-3 text-purple d-flex justify-content-between align-items-center user-info">
@@ -87,36 +89,50 @@ function Account() {
               </tr>
             </thead>
             <tbody>
-              {/* {transactions.map((transaction) => {
+              {transactions.map((transaction, index) => {
                 return (
-                  <div>
+                  <React.Fragment key={index}>
                     <tr
                       data-bs-toggle="collapse"
-                      data-bs-target="#collapseRow${transaction.id}"
+                      data-bs-target={`#collapseRow${transaction.id}`}
                       aria-expanded="false"
-                      aria-controls="collapseRow${transaction.id}"
+                      aria-controls={`collapseRow${transaction.id}`}
                     >
-                      <td class="fw-bold">${transaction.formatted_date}</td>
-                      <td>${capitalize(transaction.transaction_type)}</td>$
-                      {transaction.reciever_account == account.id
-                        ? `<td class="text-danger"></td><td class="text-success">${transaction.amount}</td><td class="fw-bold">${transaction.reciever_new_balance}</td>`
-                        : `<td class="text-danger">${transaction.amount}</td><td class="text-success"></td><td class="fw-bold">${transaction.sender_new_balance}</td>`}
+                      <td className="fw-bold">{transaction.formatted_date}</td>
+                      <td>{capitalize(transaction.transaction_type)}</td>
+                      {transaction.reciever_account === accountId ? (
+                        <>
+                          <td className="text-danger"></td>
+                          <td className="text-success">{transaction.amount}</td>
+                          <td className="fw-bold">
+                            {transaction.reciever_new_balance}
+                          </td>
+                        </>
+                      ) : (
+                        <>
+                          <td className="text-danger">{transaction.amount}</td>
+                          <td className="text-success"></td>
+                          <td className="fw-bold">
+                            {transaction.sender_new_balance}
+                          </td>
+                        </>
+                      )}
                     </tr>
                     <tr
-                      id="collapseRow${transaction.id}"
-                      class="accordion-collapse collapse"
+                      id={`collapseRow${transaction.id}`}
+                      className="accordion-collapse collapse"
                       aria-labelledby="headingOne"
                       data-bs-parent="#tableAccordion"
                     >
-                      <td colspan="5">
-                        <div class="p-3">
-                          <strong>Details:</strong> ${transaction.details}
+                      <td colSpan="5">
+                        <div className="p-3">
+                          <strong>Details:</strong> {transaction.details}
                         </div>
                       </td>
                     </tr>
-                  </div>
+                  </React.Fragment>
                 );
-              })} */}
+              })}
             </tbody>
           </table>
         </div>

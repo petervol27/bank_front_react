@@ -1,8 +1,10 @@
 // General + imports
 import axios from 'axios';
+
 const HOST = 'https://bank-zdpd.onrender.com/';
 export const capitalize = (word) =>
   word.charAt(0).toUpperCase() + word.slice(1);
+
 // const tokenHeader = {
 //   headers: { Authorization: `Bearer ${access}` },
 // };
@@ -108,5 +110,26 @@ export const fetchHistory = async () => {
   const transactions = response.data;
   return { transactions: [...transactions], account: account };
 };
-
+export const makeTransaction = async (
+  type,
+  reciever = null,
+  amount,
+  details,
+  sender = null
+) => {
+  const newTransaction = {
+    transaction_type: type,
+    reciever_account: reciever,
+    amount: amount,
+    details: details,
+    sender_account: sender,
+  };
+  const access = localStorage.getItem('access_token');
+  const response = await axios.post(`${HOST}transactions/`, newTransaction, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+  if (response.data.failure) {
+    return response.data.failure;
+  }
+};
 // -------------------------------------------------------------
