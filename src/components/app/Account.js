@@ -1,22 +1,49 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AccountContext from '../../AccountContext';
 import AuthContext from '../../AuthContext';
-import { capitalize, fetchHistory } from '../../scripts/api';
+import { capitalize, fetchHistory, makeTransaction } from '../../scripts/api';
 
 function Account() {
+  const navigate = useNavigate();
   const { accountNum, setAccountNum } = useContext(AccountContext);
   const { accountBranch, setAccountBranch } = useContext(AccountContext);
   const { accountBalance, setAccountBalance } = useContext(AccountContext);
   const { username, setUsername } = useContext(AuthContext);
   const [transactions, setTransactions] = useState([]);
   const [accountId, setAccountId] = useState('');
+  const [amount, setAmount] = useState('');
   useEffect(() => {
     fetchHistory().then((response) => {
       setTransactions(response.transactions);
       setAccountId(response.account.id);
     });
   }, []);
+  const handleDepositWithdraw = async (e) => {
+    e.preventDefault();
+    const action = e.nativeEvent.submitter.value;
+    if (action === 'withdraw') {
+      const details = `Withdrew ${amount} from account`;
+      await makeTransaction(action, null, amount, details, accountId);
+      alert(details);
+      setAmount('');
+      fetchHistory().then((response) => {
+        setTransactions(response.transactions);
+        setAccountId(response.account.id);
+      });
+      navigate('/account');
+    } else {
+      const details = `Deposited ${amount} to account`;
+      await makeTransaction(action, accountId, amount, details, null);
+      alert(details);
+      setAmount('');
+      fetchHistory().then((response) => {
+        setTransactions(response.transactions);
+        setAccountId(response.account.id);
+      });
+      navigate('/account');
+    }
+  };
   return (
     <main className="main-accounts">
       <div className="ms-3 mt-3 text-purple d-flex justify-content-between align-items-center user-info">
@@ -49,13 +76,15 @@ function Account() {
       </div>
       <form
         className="container d-flex justify-content-center align-items-center gap-2 mb-3"
-        id="withdrawDepositForm"
+        onSubmit={(e) => handleDepositWithdraw(e)}
       >
         <input
           type="number"
           className="form-control w-25"
           placeholder="Enter Amount Here"
-          id="amountInput"
+          name="amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
           required
         />
 

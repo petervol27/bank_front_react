@@ -1,8 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import AccountContext from '../../AccountContext';
 import TransactionForm from './TransactionForm';
 import AuthContext from '../../AuthContext';
+import { useNavigate } from 'react-router-dom';
 function Transactions() {
+  const navigate = useNavigate();
   const { accountNum } = useContext(AccountContext);
   const { accountBalance } = useContext(AccountContext);
   const [transactionType, setTransactionType] = useState('');
@@ -12,14 +14,17 @@ function Transactions() {
   const { username, setUsername } = useContext(AuthContext);
   const [modalContent, setModalContent] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const modalRef = useRef(null);
 
   const handleShowModal = (content) => {
     setModalContent(content);
     setShowModal(true);
+    modalRef.current.focus();
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
+    navigate('/account');
   };
   return (
     <main>
@@ -69,9 +74,8 @@ function Transactions() {
           />
         )}
 
-        {/* Modal */}
         {showModal && (
-          <div className="modal" style={{ display: 'block' }}>
+          <div className="modal" style={{ display: 'block' }} ref={modalRef}>
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">

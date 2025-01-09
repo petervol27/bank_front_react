@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { fetchAccounts, makeTransaction } from '../../scripts/api';
+import {
+  fetchAccount,
+  fetchAccounts,
+  makeTransaction,
+} from '../../scripts/api';
 
 function TransactionForm({ type, onFormSubmit }) {
   const [accounts, setAccounts] = useState([]);
@@ -18,43 +22,16 @@ function TransactionForm({ type, onFormSubmit }) {
     fetchAccounts().then(setAccounts);
   }, []);
 
-  const forms = {
-    transfer: (
-      <div>
-        <h5 className="text-purple">Transfer To Account</h5>
-        <select className="form-select mb-2">
-          <option value="">Choose Account</option>
-          {accounts.map((account) => (
-            <option key={account.id} value={account.id}>
-              {account.fname} {account.lname} - {account.account_num}
-            </option>
-          ))}
-        </select>
-        <input
-          type="number"
-          step="0.01"
-          placeholder="Amount"
-          className="form-control mb-2"
-        />
-        <button type="submit" className="btn form-btn bg-purple">
-          Submit Transfer
-        </button>
-      </div>
-    ),
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { recipientAccount, amount, employerName, description, paymentType } =
       formData;
     let details = '';
-
-    // Example user and account fetched elsewhere (adjust as needed)
-    const data = await fetchAccounts(); // Replace with actual user/account context
+    const data = await fetchAccount();
     const { account, user } = data;
-
     if (type === 'transfer') {
       const selectedAccount = accounts.find(
-        (acc) => acc.id === recipientAccount
+        (acc) => acc.id === Number(recipientAccount)
       );
       const transactionDetails = `${user.fname} ${user.lname} - ${account.account_num} transferred ${amount} to ${selectedAccount.fname} ${selectedAccount.lname}`;
       await makeTransaction(
@@ -64,11 +41,11 @@ function TransactionForm({ type, onFormSubmit }) {
         transactionDetails,
         account.id
       );
-      details = `Transaction Type: Transfer\nRecipient Account: ${selectedAccount.fname} ${selectedAccount.lname}\nAmount: ${amount}`;
+      details = `Transaction Type: Transfer Recipient Account: ${selectedAccount.fname} ${selectedAccount.lname} Amount: ${amount}`;
     } else if (type === 'salary') {
       const transactionDetails = `Salary from ${employerName} with a sum of ${amount}`;
       await makeTransaction(type, account.id, amount, transactionDetails);
-      details = `Transaction Type: Salary\nEmployer Name: ${employerName}\nAmount: ${amount}`;
+      details = `Transaction Type: Salary Employer Name: ${employerName} Amount: ${amount}`;
     } else if (type === 'credit_usage') {
       const transactionDetails = `Used card for ${description}, amount: ${amount}`;
       const response = await makeTransaction(
@@ -79,10 +56,10 @@ function TransactionForm({ type, onFormSubmit }) {
         account.id
       );
       if (response) {
+        details = `Transaction Type: Card Usage Description: ${description} Amount: ${amount}`;
+      } else {
         alert(response);
-        window.location.reload();
       }
-      details = `Transaction Type: Card Usage\nDescription: ${description}\nAmount: ${amount}`;
     } else if (type === 'payment') {
       let transactionDetails =
         paymentType === 'loan'
@@ -95,10 +72,9 @@ function TransactionForm({ type, onFormSubmit }) {
         transactionDetails,
         account.id
       );
-      details = `Transaction Type: Payment\nType: ${paymentType}\nAmount: ${amount}`;
+      details = `Transaction Type: Payment Type: ${paymentType} Amount: ${amount}`;
     }
-
-    alert(details); // Replace with modal handling
+    onFormSubmit(details);
   };
 
   const renderFormFields = () => {
