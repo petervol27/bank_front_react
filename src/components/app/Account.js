@@ -59,7 +59,7 @@ function Account() {
           <strong
             className={accountBalance >= 0 ? 'text-success' : 'text-danger'}
           >
-            {accountBalance}
+            ₪{accountBalance}
           </strong>
         </p>
       </div>
@@ -121,17 +121,19 @@ function Account() {
                       {transaction.reciever_account === accountId ? (
                         <>
                           <td className="text-danger"></td>
-                          <td className="text-success">{transaction.amount}</td>
+                          <td className="text-success">
+                            ₪{transaction.amount}
+                          </td>
                           <td className="fw-bold">
-                            {transaction.reciever_new_balance}
+                            ₪{transaction.reciever_new_balance}
                           </td>
                         </>
                       ) : (
                         <>
-                          <td className="text-danger">{transaction.amount}</td>
+                          <td className="text-danger">₪{transaction.amount}</td>
                           <td className="text-success"></td>
                           <td className="fw-bold">
-                            {transaction.sender_new_balance}
+                            ₪{transaction.sender_new_balance}
                           </td>
                         </>
                       )}

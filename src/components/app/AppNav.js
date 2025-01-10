@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import AuthContext from '../../AuthContext';
 import AccountContext from '../../AccountContext';
 import { capitalize, fetchAccount } from '../../scripts/api';
+import { checkLogin, setNavigate } from '../../scripts/token';
 
 function AppNav() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
@@ -30,6 +31,7 @@ function AppNav() {
       setAccountNum(response.account.account_num);
       setAccountBranch(response.account.branch);
       setAccountBalance(response.account.balance);
+      setNavigate(navigate);
     });
   });
 

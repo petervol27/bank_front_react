@@ -1,5 +1,5 @@
 // General + imports
-import axios from 'axios';
+import axiosInstance from './token';
 
 const HOST = 'https://bank-zdpd.onrender.com/';
 export const capitalize = (word) =>
@@ -12,7 +12,7 @@ export const capitalize = (word) =>
 // -------------------------------------------------------------
 // Branches
 export const getBranches = async () => {
-  const res = await axios.get(`${HOST}accounts/branches/`);
+  const res = await axiosInstance.get(`${HOST}accounts/branches/`);
   return res.data;
 };
 
@@ -21,7 +21,7 @@ export const getBranches = async () => {
 export const login = async (username, password) => {
   const newUser = { username: username, password: password };
   try {
-    const res = await axios.post(`${HOST}users/login/`, newUser);
+    const res = await axiosInstance.post(`${HOST}users/login/`, newUser);
     return res.data;
   } catch (error) {
     return error;
@@ -30,8 +30,8 @@ export const login = async (username, password) => {
 
 export const register = async (newUser) => {
   try {
-    await axios.post(`${HOST}users/register/`, newUser);
-    const loginResponse = await axios.post(`${HOST}users/login/`, {
+    await axiosInstance.post(`${HOST}users/register/`, newUser);
+    const loginResponse = await axiosInstance.post(`${HOST}users/login/`, {
       username: newUser.username,
       password: newUser.password,
     });
@@ -39,7 +39,7 @@ export const register = async (newUser) => {
     const refresh = loginResponse.data.refresh;
     localStorage.setItem('access_token', access);
     localStorage.setItem('refresh_token', refresh);
-    await axios.post(
+    await axiosInstance.post(
       `${HOST}accounts/auto_create/`,
       {},
       {
@@ -61,17 +61,17 @@ export const register = async (newUser) => {
 // Accounts
 export const fetchAccount = async () => {
   const access = localStorage.getItem('access_token');
-  const response = await axios.get(`${HOST}accounts/`, {
+  const response = await axiosInstance.get(`${HOST}accounts/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
   return response.data;
 };
 export const fetchAccounts = async () => {
   const access = localStorage.getItem('access_token');
-  const accountResponse = await axios.get(`${HOST}accounts/all/`, {
+  const accountResponse = await axiosInstance.get(`${HOST}accounts/all/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
-  const userResponse = await axios.get(`${HOST}users/all/`, {
+  const userResponse = await axiosInstance.get(`${HOST}users/all/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
   const accounts = accountResponse.data;
@@ -98,7 +98,7 @@ export const fetchAccounts = async () => {
 // Loan
 export const fetchLoans = async () => {
   const access = localStorage.getItem('access_token');
-  const response = await axios.get(`${HOST}loans/`, {
+  const response = await axiosInstance.get(`${HOST}loans/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
   const loan = response.data;
@@ -110,9 +110,13 @@ export const fetchLoans = async () => {
 };
 export const loanRequest = async (newLoan) => {
   const access = localStorage.getItem('access_token');
-  const response = await axios.post(`${HOST}loans/request_loan/`, newLoan, {
-    headers: { Authorization: `Bearer ${access}` },
-  });
+  const response = await axiosInstance.post(
+    `${HOST}loans/request_loan/`,
+    newLoan,
+    {
+      headers: { Authorization: `Bearer ${access}` },
+    }
+  );
   if (response.data.failure) {
     alert('sorry you already have an active loan');
     return;
@@ -124,7 +128,7 @@ export const loanRequest = async (newLoan) => {
 // Credit
 export const fetchCard = async () => {
   const access = localStorage.getItem('access_token');
-  const response = await axios.get(`${HOST}cards/get_card/`, {
+  const response = await axiosInstance.get(`${HOST}cards/get_card/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
   const card = response.data;
@@ -135,7 +139,7 @@ export const fetchCard = async () => {
 };
 export const fetchCardHistory = async () => {
   const access = localStorage.getItem('access_token');
-  const response = await axios.get(`${HOST}cards/card_history/`, {
+  const response = await axiosInstance.get(`${HOST}cards/card_history/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
   return response.data;
@@ -146,14 +150,18 @@ export const cardUse = async (amount, transactionDetails) => {
     details: transactionDetails,
   };
   const access = localStorage.getItem('access_token');
-  const response = await axios.post(`${HOST}cards/use_card/`, newTransaction, {
-    headers: { Authorization: `Bearer ${access}` },
-  });
+  const response = await axiosInstance.post(
+    `${HOST}cards/use_card/`,
+    newTransaction,
+    {
+      headers: { Authorization: `Bearer ${access}` },
+    }
+  );
   return response.data;
 };
 export const fetchCardForm = async () => {
   const access = localStorage.getItem('access_token');
-  const response = await axios.get(`${HOST}cards/get_form_data/`, {
+  const response = await axiosInstance.get(`${HOST}cards/get_form_data/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
   return response.data;
@@ -161,7 +169,7 @@ export const fetchCardForm = async () => {
 
 export const cardRequest = async (newCard) => {
   const access = localStorage.getItem('access_token');
-  const response = await axios.post(`${HOST}cards/`, newCard, {
+  const response = await axiosInstance.post(`${HOST}cards/`, newCard, {
     headers: { Authorization: `Bearer ${access}` },
   });
   return response.data;
@@ -170,7 +178,7 @@ export const cardRequest = async (newCard) => {
 // Transactions
 export const fetchHistory = async () => {
   const access = localStorage.getItem('access_token');
-  const response = await axios.get(`${HOST}transactions/history/`, {
+  const response = await axiosInstance.get(`${HOST}transactions/history/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
   const data = await fetchAccount();
@@ -193,9 +201,13 @@ export const makeTransaction = async (
     sender_account: sender,
   };
   const access = localStorage.getItem('access_token');
-  const response = await axios.post(`${HOST}transactions/`, newTransaction, {
-    headers: { Authorization: `Bearer ${access}` },
-  });
+  const response = await axiosInstance.post(
+    `${HOST}transactions/`,
+    newTransaction,
+    {
+      headers: { Authorization: `Bearer ${access}` },
+    }
+  );
   if (response.data.failure) {
     return response.data;
   }
