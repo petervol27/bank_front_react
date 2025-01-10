@@ -96,8 +96,78 @@ export const fetchAccounts = async () => {
 };
 // -------------------------------------------------------------
 // Loan
+export const fetchLoans = async () => {
+  const access = localStorage.getItem('access_token');
+  const response = await axios.get(`${HOST}loans/`, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+  const loan = response.data;
+  if (loan === '') {
+    return { failure: 'No Loans' };
+  } else {
+    return { success: 'Got Loan', loan: loan };
+  }
+};
+export const loanRequest = async (newLoan) => {
+  const access = localStorage.getItem('access_token');
+  const response = await axios.post(`${HOST}loans/request_loan/`, newLoan, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+  if (response.data.failure) {
+    alert('sorry you already have an active loan');
+    return;
+  }
+  const loanAmount = response.data.amount;
+  alert(`${loanAmount} is being transfered to your account now!`);
+};
 // -------------------------------------------------------------
 // Credit
+export const fetchCard = async () => {
+  const access = localStorage.getItem('access_token');
+  const response = await axios.get(`${HOST}cards/get_card/`, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+  const card = response.data;
+  if (card === '') {
+    return { failure: 'You have no Card' };
+  }
+  return card;
+};
+export const fetchCardHistory = async () => {
+  const access = localStorage.getItem('access_token');
+  const response = await axios.get(`${HOST}cards/card_history/`, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+
+  const transactions = response.data;
+  console.log(transactions);
+  if (transactions === 0) {
+    return;
+  }
+  // let finalHTML = ``;
+  // transactions.map((transaction) => {
+  //   let transactionHTML = `<tr>
+  //     <td>${transaction.formatted_date}</td>
+  //     <td>${transaction.amount}</td>
+  //     <td>${transaction.details}</td>
+  //     </tr>`;
+  //   finalHTML += transactionHTML;
+  // });
+  // tableBody.innerHTML = finalHTML;
+};
+export const cardUse = async (amount, transactionDetails) => {
+  const newTransaction = {
+    amount: amount,
+    details: transactionDetails,
+  };
+  const access = localStorage.getItem('access_token');
+  const response = await axios.post(`${HOST}cards/use_card/`, newTransaction, {
+    headers: { Authorization: `Bearer ${access}` },
+  });
+  if (response.data.failure) {
+    return response.data;
+  }
+};
 // -------------------------------------------------------------
 // Transactions
 export const fetchHistory = async () => {
@@ -129,8 +199,9 @@ export const makeTransaction = async (
     headers: { Authorization: `Bearer ${access}` },
   });
   if (response.data.failure) {
-    return response.data.failure;
+    return response.data;
   }
+  return { success: 'Transaction Successful!' };
 };
 
 // -------------------------------------------------------------

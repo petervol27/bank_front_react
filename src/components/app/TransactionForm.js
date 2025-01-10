@@ -3,6 +3,7 @@ import {
   fetchAccount,
   fetchAccounts,
   makeTransaction,
+  cardUse,
 } from '../../scripts/api';
 
 function TransactionForm({ type, onFormSubmit }) {
@@ -48,31 +49,34 @@ function TransactionForm({ type, onFormSubmit }) {
       details = `Transaction Type: Salary Employer Name: ${employerName} Amount: ${amount}`;
     } else if (type === 'credit_usage') {
       const transactionDetails = `Used card for ${description}, amount: ${amount}`;
-      const response = await makeTransaction(
-        type,
-        null,
-        amount,
-        transactionDetails,
-        account.id
-      );
-      if (response) {
-        details = `Transaction Type: Card Usage Description: ${description} Amount: ${amount}`;
+      const response = await cardUse(amount, transactionDetails);
+      if (response.failure) {
+        alert(response.failure);
+        return;
       } else {
-        alert(response);
+        details = `Transaction Type: Card Usage, Description: ${description}, Amount: ${amount}`;
       }
     } else if (type === 'payment') {
       let transactionDetails =
         paymentType === 'loan'
           ? `Payed ${amount} for Loan`
           : `Payed off ${amount} from Credit Card`;
-      await makeTransaction(
+      if (paymentType === 'payment') {
+        alert('Please Choose Payment Type');
+        return;
+      }
+      const response = await makeTransaction(
         paymentType,
         null,
         amount,
         transactionDetails,
         account.id
       );
-      details = `Transaction Type: Payment Type: ${paymentType} Amount: ${amount}`;
+      if (response.failure) {
+        alert(response.failure);
+        return;
+      }
+      details = `Transaction Type: Payment ,Payment Type: ${paymentType} , Amount: ${amount}`;
     }
     onFormSubmit(details);
   };
@@ -103,6 +107,7 @@ function TransactionForm({ type, onFormSubmit }) {
               value={formData.amount}
               onChange={handleChange}
               className="form-control mb-2"
+              required
             />
           </>
         );
@@ -116,6 +121,7 @@ function TransactionForm({ type, onFormSubmit }) {
               value={formData.employerName}
               onChange={handleChange}
               className="form-control mb-2"
+              required
             />
             <input
               name="amount"
@@ -125,6 +131,7 @@ function TransactionForm({ type, onFormSubmit }) {
               value={formData.amount}
               onChange={handleChange}
               className="form-control mb-2"
+              required
             />
           </>
         );
@@ -138,6 +145,7 @@ function TransactionForm({ type, onFormSubmit }) {
               value={formData.description}
               onChange={handleChange}
               className="form-control mb-2"
+              required
             />
             <input
               name="amount"
@@ -147,6 +155,7 @@ function TransactionForm({ type, onFormSubmit }) {
               value={formData.amount}
               onChange={handleChange}
               className="form-control mb-2"
+              required
             />
           </>
         );
@@ -159,6 +168,7 @@ function TransactionForm({ type, onFormSubmit }) {
               onChange={handleChange}
               className="form-select mb-2"
             >
+              <option value="">Select Payment Type</option>
               <option value="loan">Loan</option>
               <option value="credit">Credit</option>
             </select>
@@ -170,6 +180,7 @@ function TransactionForm({ type, onFormSubmit }) {
               value={formData.amount}
               onChange={handleChange}
               className="form-control mb-2"
+              required
             />
           </>
         );

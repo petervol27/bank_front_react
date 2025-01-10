@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AccountContext from '../../AccountContext';
-import AuthContext from '../../AuthContext';
 import { capitalize, fetchHistory, makeTransaction } from '../../scripts/api';
+import Header from './Header';
 
 function Account() {
   const navigate = useNavigate();
   const { accountNum, setAccountNum } = useContext(AccountContext);
   const { accountBranch, setAccountBranch } = useContext(AccountContext);
   const { accountBalance, setAccountBalance } = useContext(AccountContext);
-  const { username, setUsername } = useContext(AuthContext);
   const [transactions, setTransactions] = useState([]);
   const [accountId, setAccountId] = useState('');
   const [amount, setAmount] = useState('');
@@ -46,17 +45,7 @@ function Account() {
   };
   return (
     <main className="main-accounts">
-      <div className="ms-3 mt-3 text-purple d-flex justify-content-between align-items-center user-info">
-        <h1>
-          Welcome, <strong>{username}!</strong>
-        </h1>
-        <Link
-          className="btn bg-purple login-txt text-white me-3"
-          to={'/transactions'}
-        >
-          Make a Transaction
-        </Link>
-      </div>
+      <Header buttonText={'Make A Transaction'} linkPath={'/transactions'} />
       <div className="my-3 bg-light text-center p-3">
         <h3>
           Account:<strong className="text-purple"> {accountNum}</strong>

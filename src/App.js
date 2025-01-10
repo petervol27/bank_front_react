@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import AuthContext from './AuthContext';
 import { useEffect, useState } from 'react';
@@ -21,6 +15,8 @@ import Account from './components/app/Account';
 import Loans from './components/app/Loans';
 import Cards from './components/app/Cards';
 import Transactions from './components/app/Transactions';
+import GetCard from './components/app/GetCard';
+import TakeLoan from './components/app/TakeLoan';
 import AccountContext from './AccountContext';
 
 function App() {
@@ -72,6 +68,8 @@ function App() {
                   <Route path="/account" element={<Account />}></Route>
                   <Route path="/loans" element={<Loans />}></Route>
                   <Route path="/cards" element={<Cards />}></Route>
+                  <Route path="/getCard" element={<GetCard />}></Route>
+                  <Route path="/takeLoan" element={<TakeLoan />}></Route>
                   <Route
                     path="/transactions"
                     element={<Transactions />}

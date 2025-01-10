@@ -19,13 +19,17 @@ function Transactions() {
   const handleShowModal = (content) => {
     setModalContent(content);
     setShowModal(true);
-    modalRef.current.focus();
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
     navigate('/account');
   };
+  useEffect(() => {
+    if (showModal && modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, [showModal]);
   return (
     <main>
       <div className="text-center my-2">
@@ -75,7 +79,7 @@ function Transactions() {
         )}
 
         {showModal && (
-          <div className="modal" style={{ display: 'block' }} ref={modalRef}>
+          <div className="modal" style={{ display: 'block' }}>
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
@@ -86,7 +90,7 @@ function Transactions() {
                     onClick={handleCloseModal}
                   ></button>
                 </div>
-                <div className="modal-body">
+                <div className="modal-body" ref={modalRef} tabIndex={-1}>
                   <p>{modalContent}</p>
                 </div>
                 <div className="modal-footer">
