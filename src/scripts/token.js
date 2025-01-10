@@ -11,7 +11,6 @@ export const refreshAccessToken = async () => {
     localStorage.setItem('access_token', newAccessToken);
     return;
   } catch (error) {
-    alert('To keep your information safe please log in again');
     throw error;
   }
 };
@@ -67,7 +66,7 @@ axiosInstance.interceptors.response.use(
           alert('Session expired. Please log in again.');
           localStorage.removeItem('access_token');
           localStorage.removeItem('refresh_token');
-          navigate('/login');
+          navigate('/');
         }
         return Promise.reject(refreshError);
       }
