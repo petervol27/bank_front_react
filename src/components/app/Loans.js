@@ -38,12 +38,14 @@ function Loans() {
               Loan: <strong>{loan.loan_number}</strong>
             </h3>
             <li className="list-group-item">Date Taken: {loan.date_taken}</li>
-            <li className="list-group-item">Amount Taken: {loan.amount}</li>
+            <li className="list-group-item">Amount Taken: ₪{loan.amount}</li>
             <li className="list-group-item">
               Spread To: {loan.payments} Payments
             </li>
             <li className="list-group-item">Due By: {loan.date_finished}</li>
-            <li className="list-group-item">Left to Pay: {loan.left_to_pay}</li>
+            <li className="list-group-item">
+              Left to Pay: ₪{loan.left_to_pay}
+            </li>
             <button
               className="btn bg-purple form-btn w-25 mx-auto mt-3"
               onClick={() => navigate('/transactions')}

@@ -49,7 +49,7 @@ function Transactions() {
               className={accountBalance >= 0 ? 'text-success' : 'text-danger'}
             >
               {' '}
-              {accountBalance}
+              ₪{accountBalance}
             </span>
           </h3>
         </div>

@@ -82,7 +82,7 @@ function Cards() {
               return (
                 <tr key={index}>
                   <td>{transaction.formatted_date}</td>
-                  <td>{transaction.amount}</td>
+                  <td>₪{transaction.amount}</td>
                   <td>{transaction.details}</td>
                 </tr>
               );

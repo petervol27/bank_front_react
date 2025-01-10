@@ -34,7 +34,7 @@ function TransactionForm({ type, onFormSubmit }) {
       const selectedAccount = accounts.find(
         (acc) => acc.id === Number(recipientAccount)
       );
-      const transactionDetails = `${user.fname} ${user.lname} - ${account.account_num} transferred ${amount} to ${selectedAccount.fname} ${selectedAccount.lname}`;
+      const transactionDetails = `${user.fname} ${user.lname} - ${account.account_num} transferred ₪${amount} to ${selectedAccount.fname} ${selectedAccount.lname}`;
       await makeTransaction(
         type,
         recipientAccount,
@@ -42,25 +42,25 @@ function TransactionForm({ type, onFormSubmit }) {
         transactionDetails,
         account.id
       );
-      details = `Transaction Type: Transfer Recipient Account: ${selectedAccount.fname} ${selectedAccount.lname} Amount: ${amount}`;
+      details = `Transaction Type: Transfer Recipient Account: ${selectedAccount.fname} ${selectedAccount.lname} Amount: ₪${amount}`;
     } else if (type === 'salary') {
-      const transactionDetails = `Salary from ${employerName} with a sum of ${amount}`;
+      const transactionDetails = `Salary from ${employerName} with a sum of ₪${amount}`;
       await makeTransaction(type, account.id, amount, transactionDetails);
-      details = `Transaction Type: Salary Employer Name: ${employerName} Amount: ${amount}`;
+      details = `Transaction Type: Salary Employer Name: ${employerName} Amount: ₪${amount}`;
     } else if (type === 'credit_usage') {
-      const transactionDetails = `Used card for ${description}, amount: ${amount}`;
+      const transactionDetails = `Used card for ${description}, amount: ₪${amount}`;
       const response = await cardUse(amount, transactionDetails);
       if (response.failure) {
         alert(response.failure);
         return;
       } else {
-        details = `Transaction Type: Card Usage, Description: ${description}, Amount: ${amount}`;
+        details = `Transaction Type: Card Usage, Description: ${description}, Amount: ₪${amount}`;
       }
     } else if (type === 'payment') {
       let transactionDetails =
         paymentType === 'loan'
-          ? `Payed ${amount} for Loan`
-          : `Payed off ${amount} from Credit Card`;
+          ? `Payed ₪${amount} for Loan`
+          : `Payed off ₪${amount} from Credit Card`;
       if (paymentType === 'payment') {
         alert('Please Choose Payment Type');
         return;
@@ -76,7 +76,7 @@ function TransactionForm({ type, onFormSubmit }) {
         alert(response.failure);
         return;
       }
-      details = `Transaction Type: Payment ,Payment Type: ${paymentType} , Amount: ${amount}`;
+      details = `Transaction Type: Payment ,Payment Type: ${paymentType} , Amount: ₪${amount}`;
     }
     onFormSubmit(details);
   };

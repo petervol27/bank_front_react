@@ -24,7 +24,7 @@ function Account() {
     e.preventDefault();
     const action = e.nativeEvent.submitter.value;
     if (action === 'withdraw') {
-      const details = `Withdrew ${amount} from account`;
+      const details = `Withdrew ₪${amount} from account`;
       await makeTransaction(action, null, amount, details, accountId);
       alert(details);
       setAmount('');
@@ -34,7 +34,7 @@ function Account() {
       });
       navigate('/account');
     } else {
-      const details = `Deposited ${amount} to account`;
+      const details = `Deposited ₪${amount} to account`;
       await makeTransaction(action, accountId, amount, details, null);
       alert(details);
       setAmount('');

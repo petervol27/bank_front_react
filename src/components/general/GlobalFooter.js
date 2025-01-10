@@ -1,7 +1,9 @@
 import { useContext } from 'react';
 import AuthContext from '../../AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function GlobalFooter() {
+  const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
   return (
     <footer className="bg-light p-3 text-center">
@@ -9,17 +11,20 @@ function GlobalFooter() {
       {!isAuthenticated ? (
         <ul className="list-group list-group-horizontal justify-content-center">
           <li className="list-group-item">
-            <a className="text-decoration-none text-purple" href="./about.html">
+            <button
+              className="text-decoration-none text-purple"
+              onClick={() => navigate('/about')}
+            >
               About Us
-            </a>
+            </button>
           </li>
           <li className="list-group-item">
-            <a
+            <button
               className="text-decoration-none text-purple"
-              href="./contact.html"
+              onClick={() => navigate('/contact')}
             >
               Contact
-            </a>
+            </button>
           </li>
         </ul>
       ) : (
