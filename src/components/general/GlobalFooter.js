@@ -12,7 +12,7 @@ function GlobalFooter() {
         <ul className="list-group list-group-horizontal justify-content-center">
           <li className="list-group-item">
             <button
-              className="text-decoration-none text-purple"
+              className="text-decoration-none text-purple btn"
               onClick={() => navigate('/about')}
             >
               About Us
@@ -20,7 +20,7 @@ function GlobalFooter() {
           </li>
           <li className="list-group-item">
             <button
-              className="text-decoration-none text-purple"
+              className="text-decoration-none text-purple btn"
               onClick={() => navigate('/contact')}
             >
               Contact
