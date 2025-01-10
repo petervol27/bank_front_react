@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import Header from './Header';
-import { fetchCard } from '../../scripts/api';
+import { fetchCard, fetchCardHistory } from '../../scripts/api';
 import { useNavigate } from 'react-router-dom';
 
 function Cards() {
   const navigate = useNavigate();
   const [gotCard, setGotCard] = useState(false);
   const [card, setCard] = useState({});
+  const [cardHistory, setCardHistory] = useState([]);
   useEffect(() => {
     fetchCard().then((response) => {
       if (response.failure) {
@@ -14,6 +15,9 @@ function Cards() {
       }
       setGotCard(true);
       setCard(response);
+    });
+    fetchCardHistory().then((response) => {
+      setCardHistory(response);
     });
   }, []);
   return (
@@ -52,6 +56,9 @@ function Cards() {
             <h1 className="text-purple text-center">No Cards Available</h1>
           )}
         </div>
+        {cardHistory.length === 0 && (
+          <h3 className="text-purple text-center">No Card Activity Yet</h3>
+        )}
         <table className="table border">
           <thead className="table-active">
             <tr>
@@ -60,7 +67,18 @@ function Cards() {
               <th>Details</th>
             </tr>
           </thead>
-          <tbody id="tableBody"></tbody>
+
+          <tbody id="tableBody">
+            {cardHistory.map((transaction, index) => {
+              return (
+                <tr key={index}>
+                  <td>{transaction.formatted_date}</td>
+                  <td>{transaction.amount}</td>
+                  <td>{transaction.details}</td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
     </main>
