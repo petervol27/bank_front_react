@@ -12,8 +12,10 @@ function Account() {
   const [transactions, setTransactions] = useState([]);
   const [accountId, setAccountId] = useState('');
   const [amount, setAmount] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     fetchHistory().then((response) => {
+      setIsLoading(false);
       setTransactions(response.transactions);
       setAccountId(response.account.id);
     });
@@ -43,6 +45,13 @@ function Account() {
       navigate('/account');
     }
   };
+  if (isLoading) {
+    return (
+      <div className="text-center">
+        <span className="loader"></span>
+      </div>
+    );
+  }
   return (
     <main className="main-accounts">
       <Header buttonText={'Make A Transaction'} linkPath={'/transactions'} />

@@ -7,8 +7,10 @@ function Loans() {
   const navigate = useNavigate();
   const [gotLoan, setGotLoan] = useState(false);
   const [loan, setLoan] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     fetchLoans().then((response) => {
+      setIsLoading(false);
       if (response.failure) {
         setGotLoan(false);
       } else {
@@ -17,6 +19,13 @@ function Loans() {
       }
     });
   }, []);
+  if (isLoading) {
+    return (
+      <div className="text-center">
+        <span className="loader"></span>
+      </div>
+    );
+  }
   return (
     <main>
       <Header buttonText={'Take A Loan'} linkPath={'/takeLoan'} />

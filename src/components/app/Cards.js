@@ -8,8 +8,10 @@ function Cards() {
   const [gotCard, setGotCard] = useState(false);
   const [card, setCard] = useState({});
   const [cardHistory, setCardHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     fetchCard().then((response) => {
+      setIsLoading(false);
       if (response.failure) {
         return;
       }
@@ -20,6 +22,13 @@ function Cards() {
       setCardHistory(response);
     });
   }, []);
+  if (isLoading) {
+    return (
+      <div className="text-center">
+        <span className="loader"></span>
+      </div>
+    );
+  }
   return (
     <main>
       <Header buttonText={'Get A Card'} linkPath={'/getCard'} />
