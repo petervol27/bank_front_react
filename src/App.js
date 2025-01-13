@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import AuthContext from './AuthContext';
 import { useEffect, useState } from 'react';
@@ -25,6 +25,7 @@ function App() {
   const [accountBranch, setAccountBranch] = useState('');
   const [accountBalance, setAccountBalance] = useState('');
   const [username, setUsername] = useState('');
+  const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     if (token) {
@@ -34,7 +35,13 @@ function App() {
   return (
     <>
       <AuthContext.Provider
-        value={{ isAuthenticated, setIsAuthenticated, username, setUsername }}
+        value={{
+          isAuthenticated,
+          setIsAuthenticated,
+          username,
+          setUsername,
+          navigate,
+        }}
       >
         <BrowserRouter>
           {!isAuthenticated && (
