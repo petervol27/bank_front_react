@@ -34,7 +34,13 @@ export const setNavigate = (navigateFunc) => {
 const axiosInstance = axios.create({
   baseURL: 'https://bank-zdpd.onrender.com/',
 });
-console.log(navigate);
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
+  return config;
+});
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
