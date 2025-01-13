@@ -5,7 +5,7 @@ import AccountContext from '../../AccountContext';
 import { capitalize, fetchAccount } from '../../scripts/api';
 
 function AppNav() {
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const { setAccountNum } = useContext(AccountContext);
   const { setAccountBranch } = useContext(AccountContext);
   const { setAccountBalance } = useContext(AccountContext);
@@ -23,6 +23,9 @@ function AppNav() {
     navigate('/');
   };
   useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/account');
+    }
     fetchAccount().then((response) => {
       const userName =
         capitalize(response.user.fname) + ' ' + capitalize(response.user.lname);
