@@ -42,7 +42,6 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { navigate } = useContext(AuthContext);
     if (error.response && error.response.status === 401) {
       try {
         await refreshAccessToken();
@@ -52,12 +51,11 @@ axiosInstance.interceptors.response.use(
         )}`;
         return axiosInstance(config);
       } catch (refreshError) {
-        if (navigate) {
-          alert('Session expired. Please log in again.');
-          localStorage.removeItem('access_token');
-          localStorage.removeItem('refresh_token');
-          navigate('/');
-        }
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        window.location.href = 'index.html';
+
         return Promise.reject(refreshError);
       }
     }
