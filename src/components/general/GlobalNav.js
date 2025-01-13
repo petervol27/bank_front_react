@@ -5,7 +5,9 @@ import { setNavigate } from '../../scripts/token';
 function GlobalNav() {
   const navigate = useNavigate();
   useEffect(() => {
-    setNavigate(navigate);
+    setNavigate(navigate).then((res) => {
+      console.log(navigate);
+    });
   }, [navigate]);
   return (
     <header>

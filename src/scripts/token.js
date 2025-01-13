@@ -28,7 +28,7 @@ export const validateToken = async (token) => {
 
 // Axios instance to control the token
 let navigate;
-export const setNavigate = (navigateFunc) => {
+export const setNavigate = async (navigateFunc) => {
   navigate = navigateFunc;
 };
 const axiosInstance = axios.create({
