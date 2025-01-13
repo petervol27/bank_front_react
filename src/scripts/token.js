@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { useContext } from 'react';
+import AuthContext from '../AuthContext';
 
 const HOST = 'https://bank-zdpd.onrender.com/';
 export const refreshAccessToken = async () => {
@@ -27,11 +29,6 @@ export const validateToken = async (token) => {
 };
 
 // Axios instance to control the token
-let navigate;
-export const setNavigate = (navigateFunc) => {
-  navigate = navigateFunc;
-  console.log(navigate);
-};
 const axiosInstance = axios.create({
   baseURL: 'https://bank-zdpd.onrender.com/',
 });
@@ -45,6 +42,7 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
+    const { navigate } = useContext(AuthContext);
     if (error.response && error.response.status === 401) {
       try {
         await refreshAccessToken();
