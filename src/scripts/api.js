@@ -1,7 +1,6 @@
 // General + imports
 import axiosInstance from './token';
 
-const HOST = 'https://bank-zdpd.onrender.com/';
 export const capitalize = (word) =>
   word.charAt(0).toUpperCase() + word.slice(1);
 
@@ -12,7 +11,7 @@ export const capitalize = (word) =>
 // -------------------------------------------------------------
 // Branches
 export const getBranches = async () => {
-  const res = await axiosInstance.get(`${HOST}accounts/branches/`);
+  const res = await axiosInstance.get(`accounts/branches/`);
   return res.data;
 };
 
@@ -21,7 +20,7 @@ export const getBranches = async () => {
 export const login = async (username, password) => {
   const newUser = { username: username, password: password };
   try {
-    const res = await axiosInstance.post(`${HOST}users/login/`, newUser);
+    const res = await axiosInstance.post(`users/login/`, newUser);
     return res.data;
   } catch (error) {
     return error;
@@ -30,8 +29,8 @@ export const login = async (username, password) => {
 
 export const register = async (newUser) => {
   try {
-    await axiosInstance.post(`${HOST}users/register/`, newUser);
-    const loginResponse = await axiosInstance.post(`${HOST}users/login/`, {
+    await axiosInstance.post(`users/register/`, newUser);
+    const loginResponse = await axiosInstance.post(`users/login/`, {
       username: newUser.username,
       password: newUser.password,
     });
@@ -39,7 +38,7 @@ export const register = async (newUser) => {
     const refresh = loginResponse.data.refresh;
     localStorage.setItem('access_token', access);
     localStorage.setItem('refresh_token', refresh);
-    await axiosInstance.post(`${HOST}accounts/auto_create/`, {});
+    await axiosInstance.post(`accounts/auto_create/`, {});
     return {
       status: 'success',
       message: 'You are now being redirected to your account',
@@ -54,12 +53,12 @@ export const register = async (newUser) => {
 // -------------------------------------------------------------
 // Accounts
 export const fetchAccount = async () => {
-  const response = await axiosInstance.get(`${HOST}accounts/`);
+  const response = await axiosInstance.get(`accounts/`);
   return response.data;
 };
 export const fetchAccounts = async () => {
-  const accountResponse = await axiosInstance.get(`${HOST}accounts/all/`);
-  const userResponse = await axiosInstance.get(`${HOST}users/all/`);
+  const accountResponse = await axiosInstance.get(`accounts/all/`);
+  const userResponse = await axiosInstance.get(`users/all/`);
   const accounts = accountResponse.data;
   const users = userResponse.data;
   let filteredAccounts = [];
@@ -83,7 +82,7 @@ export const fetchAccounts = async () => {
 // -------------------------------------------------------------
 // Loan
 export const fetchLoans = async () => {
-  const response = await axiosInstance.get(`${HOST}loans/`);
+  const response = await axiosInstance.get(`loans/`);
   const loan = response.data;
   if (loan === '') {
     return { failure: 'No Loans' };
@@ -92,10 +91,7 @@ export const fetchLoans = async () => {
   }
 };
 export const loanRequest = async (newLoan) => {
-  const response = await axiosInstance.post(
-    `${HOST}loans/request_loan/`,
-    newLoan
-  );
+  const response = await axiosInstance.post(`loans/request_loan/`, newLoan);
   if (response.data.failure) {
     alert('sorry you already have an active loan');
     return;
@@ -106,7 +102,7 @@ export const loanRequest = async (newLoan) => {
 // -------------------------------------------------------------
 // Credit
 export const fetchCard = async () => {
-  const response = await axiosInstance.get(`${HOST}cards/get_card/`);
+  const response = await axiosInstance.get(`cards/get_card/`);
   const card = response.data;
   if (card === '') {
     return { failure: 'You have no Card' };
@@ -114,7 +110,7 @@ export const fetchCard = async () => {
   return card;
 };
 export const fetchCardHistory = async () => {
-  const response = await axiosInstance.get(`${HOST}cards/card_history/`);
+  const response = await axiosInstance.get(`cards/card_history/`);
   return response.data;
 };
 export const cardUse = async (amount, transactionDetails) => {
@@ -123,25 +119,22 @@ export const cardUse = async (amount, transactionDetails) => {
     details: transactionDetails,
   };
 
-  const response = await axiosInstance.post(
-    `${HOST}cards/use_card/`,
-    newTransaction
-  );
+  const response = await axiosInstance.post(`cards/use_card/`, newTransaction);
   return response.data;
 };
 export const fetchCardForm = async () => {
-  const response = await axiosInstance.get(`${HOST}cards/get_form_data/`);
+  const response = await axiosInstance.get(`cards/get_form_data/`);
   return response.data;
 };
 
 export const cardRequest = async (newCard) => {
-  const response = await axiosInstance.post(`${HOST}cards/`, newCard);
+  const response = await axiosInstance.post(`cards/`, newCard);
   return response.data;
 };
 // -------------------------------------------------------------
 // Transactions
 export const fetchHistory = async () => {
-  const response = await axiosInstance.get(`${HOST}transactions/history/`);
+  const response = await axiosInstance.get(`transactions/history/`);
   const data = await fetchAccount();
   const account = data.account;
   const transactions = response.data;
@@ -162,10 +155,7 @@ export const makeTransaction = async (
     sender_account: sender,
   };
 
-  const response = await axiosInstance.post(
-    `${HOST}transactions/`,
-    newTransaction
-  );
+  const response = await axiosInstance.post(`transactions/`, newTransaction);
   if (response.data.failure) {
     return response.data;
   }
