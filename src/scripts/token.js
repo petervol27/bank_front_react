@@ -28,8 +28,9 @@ export const validateToken = async (token) => {
 
 // Axios instance to control the token
 let navigate;
-export const setNavigate = async (navigateFunc) => {
+export const setNavigate = (navigateFunc) => {
   navigate = navigateFunc;
+  console.log(navigate);
 };
 const axiosInstance = axios.create({
   baseURL: 'https://bank-zdpd.onrender.com/',
