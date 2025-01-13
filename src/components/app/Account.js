@@ -6,9 +6,9 @@ import Header from './Header';
 
 function Account() {
   const navigate = useNavigate();
-  const { accountNum, setAccountNum } = useContext(AccountContext);
-  const { accountBranch, setAccountBranch } = useContext(AccountContext);
-  const { accountBalance, setAccountBalance } = useContext(AccountContext);
+  const { accountNum } = useContext(AccountContext);
+  const { accountBranch } = useContext(AccountContext);
+  const { accountBalance } = useContext(AccountContext);
   const [transactions, setTransactions] = useState([]);
   const [accountId, setAccountId] = useState('');
   const [amount, setAmount] = useState('');
