@@ -17,9 +17,7 @@ export const refreshAccessToken = async () => {
 
 export const validateToken = async (token) => {
   try {
-    const response = await axios.get(`${HOST}users/validate/`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get(`${HOST}users/validate/`);
     if (response.data.valid) {
       return;
     }
@@ -28,18 +26,6 @@ export const validateToken = async (token) => {
   }
 };
 
-export const checkLogin = async () => {
-  const access = localStorage.getItem('access_token');
-  try {
-    if (!access) {
-      throw new Error('no access token');
-    }
-    await validateToken(access);
-    return;
-  } catch (error) {
-    return false;
-  }
-};
 // Axios instance to control the token
 let navigate;
 export const setNavigate = (navigateFunc) => {
@@ -48,7 +34,7 @@ export const setNavigate = (navigateFunc) => {
 const axiosInstance = axios.create({
   baseURL: 'https://bank-zdpd.onrender.com/',
 });
-
+console.log(navigate);
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
