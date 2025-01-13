@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { useContext } from 'react';
-import AuthContext from '../AuthContext';
 
 const HOST = 'https://bank-zdpd.onrender.com/';
 export const refreshAccessToken = async () => {
