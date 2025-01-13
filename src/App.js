@@ -25,7 +25,6 @@ function App() {
   const [accountBranch, setAccountBranch] = useState('');
   const [accountBalance, setAccountBalance] = useState('');
   const [username, setUsername] = useState('');
-  const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     if (token) {
@@ -40,48 +39,52 @@ function App() {
           setIsAuthenticated,
           username,
           setUsername,
-          navigate,
         }}
       >
-        {!isAuthenticated && (
-          <>
-            <GlobalNav />
-            <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/about" element={<About />}></Route>
-              <Route path="/branches" element={<Branches />}></Route>
-              <Route path="/contact" element={<Contact />}></Route>
-              <Route path="/register" element={<Register />}></Route>
-              <Route path="/login" element={<Login />}></Route>
-            </Routes>
-            <GlobalFooter />
-          </>
-        )}
-        <AccountContext.Provider
-          value={{
-            accountNum,
-            setAccountNum,
-            accountBranch,
-            setAccountBranch,
-            accountBalance,
-            setAccountBalance,
-          }}
-        >
-          {isAuthenticated && (
+        <BrowserRouter>
+          {!isAuthenticated && (
             <>
-              <AppNav />
+              <GlobalNav />
               <Routes>
-                <Route path="/account" element={<Account />}></Route>
-                <Route path="/loans" element={<Loans />}></Route>
-                <Route path="/cards" element={<Cards />}></Route>
-                <Route path="/getCard" element={<GetCard />}></Route>
-                <Route path="/takeLoan" element={<TakeLoan />}></Route>
-                <Route path="/transactions" element={<Transactions />}></Route>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/about" element={<About />}></Route>
+                <Route path="/branches" element={<Branches />}></Route>
+                <Route path="/contact" element={<Contact />}></Route>
+                <Route path="/register" element={<Register />}></Route>
+                <Route path="/login" element={<Login />}></Route>
               </Routes>
               <GlobalFooter />
             </>
           )}
-        </AccountContext.Provider>
+          <AccountContext.Provider
+            value={{
+              accountNum,
+              setAccountNum,
+              accountBranch,
+              setAccountBranch,
+              accountBalance,
+              setAccountBalance,
+            }}
+          >
+            {isAuthenticated && (
+              <>
+                <AppNav />
+                <Routes>
+                  <Route path="/account" element={<Account />}></Route>
+                  <Route path="/loans" element={<Loans />}></Route>
+                  <Route path="/cards" element={<Cards />}></Route>
+                  <Route path="/getCard" element={<GetCard />}></Route>
+                  <Route path="/takeLoan" element={<TakeLoan />}></Route>
+                  <Route
+                    path="/transactions"
+                    element={<Transactions />}
+                  ></Route>
+                </Routes>
+                <GlobalFooter />
+              </>
+            )}
+          </AccountContext.Provider>
+        </BrowserRouter>
       </AuthContext.Provider>
     </>
   );
