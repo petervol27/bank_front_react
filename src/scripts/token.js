@@ -52,7 +52,7 @@ axiosInstance.interceptors.response.use(
         alert('Session expired. Please log in again.');
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        window.location.href = 'index.html';
+        window.location.href = '/';
 
         return Promise.reject(refreshError);
       }
