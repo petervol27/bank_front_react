@@ -45,7 +45,6 @@ let navigate;
 export const setNavigate = (navigateFunc) => {
   navigate = navigateFunc;
 };
-
 const axiosInstance = axios.create({
   baseURL: 'https://bank-zdpd.onrender.com/',
 });

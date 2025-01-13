@@ -1,6 +1,12 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { setNavigate } from '../../scripts/token';
+import { useEffect } from 'react';
 
 function GlobalNav() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    setNavigate(navigate);
+  });
   return (
     <header>
       <nav className="navbar navbar-expand-sm bg-light">

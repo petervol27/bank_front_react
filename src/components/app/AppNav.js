@@ -3,14 +3,13 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import AuthContext from '../../AuthContext';
 import AccountContext from '../../AccountContext';
 import { capitalize, fetchAccount } from '../../scripts/api';
-import { checkLogin, setNavigate } from '../../scripts/token';
 
 function AppNav() {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
-  const { accountNum, setAccountNum } = useContext(AccountContext);
-  const { accountBranch, setAccountBranch } = useContext(AccountContext);
-  const { accountBalance, setAccountBalance } = useContext(AccountContext);
-  const { username, setUsername } = useContext(AuthContext);
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const { setAccountNum } = useContext(AccountContext);
+  const { setAccountBranch } = useContext(AccountContext);
+  const { setAccountBalance } = useContext(AccountContext);
+  const { setUsername } = useContext(AuthContext);
   const navigate = useNavigate();
   const logout = () => {
     localStorage.removeItem('access_token');
@@ -31,9 +30,8 @@ function AppNav() {
       setAccountNum(response.account.account_num);
       setAccountBranch(response.account.branch);
       setAccountBalance(response.account.balance);
-      setNavigate(navigate);
     });
-  });
+  }, []);
 
   return (
     <header>
