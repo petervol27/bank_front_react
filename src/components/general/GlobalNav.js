@@ -6,7 +6,8 @@ function GlobalNav() {
   const navigate = useNavigate();
   useEffect(() => {
     setNavigate(navigate);
-  });
+    console.log(navigate);
+  }, []);
   return (
     <header>
       <nav className="navbar navbar-expand-sm bg-light">
