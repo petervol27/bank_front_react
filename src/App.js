@@ -42,50 +42,45 @@ function App() {
           setUsername,
         }}
       >
-        <BrowserRouter>
-          {!isAuthenticated && (
+        {!isAuthenticated && (
+          <>
+            <GlobalNav />
+            <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/about" element={<About />}></Route>
+              <Route path="/branches" element={<Branches />}></Route>
+              <Route path="/contact" element={<Contact />}></Route>
+              <Route path="/register" element={<Register />}></Route>
+              <Route path="/login" element={<Login />}></Route>
+            </Routes>
+            <GlobalFooter />
+          </>
+        )}
+        <AccountContext.Provider
+          value={{
+            accountNum,
+            setAccountNum,
+            accountBranch,
+            setAccountBranch,
+            accountBalance,
+            setAccountBalance,
+          }}
+        >
+          {isAuthenticated && (
             <>
-              <GlobalNav />
+              <AppNav />
               <Routes>
-                <Route path="/" element={<Home />}></Route>
-                <Route path="/about" element={<About />}></Route>
-                <Route path="/branches" element={<Branches />}></Route>
-                <Route path="/contact" element={<Contact />}></Route>
-                <Route path="/register" element={<Register />}></Route>
-                <Route path="/login" element={<Login />}></Route>
+                <Route path="/account" element={<Account />}></Route>
+                <Route path="/loans" element={<Loans />}></Route>
+                <Route path="/cards" element={<Cards />}></Route>
+                <Route path="/getCard" element={<GetCard />}></Route>
+                <Route path="/takeLoan" element={<TakeLoan />}></Route>
+                <Route path="/transactions" element={<Transactions />}></Route>
               </Routes>
               <GlobalFooter />
             </>
           )}
-          <AccountContext.Provider
-            value={{
-              accountNum,
-              setAccountNum,
-              accountBranch,
-              setAccountBranch,
-              accountBalance,
-              setAccountBalance,
-            }}
-          >
-            {isAuthenticated && (
-              <>
-                <AppNav />
-                <Routes>
-                  <Route path="/account" element={<Account />}></Route>
-                  <Route path="/loans" element={<Loans />}></Route>
-                  <Route path="/cards" element={<Cards />}></Route>
-                  <Route path="/getCard" element={<GetCard />}></Route>
-                  <Route path="/takeLoan" element={<TakeLoan />}></Route>
-                  <Route
-                    path="/transactions"
-                    element={<Transactions />}
-                  ></Route>
-                </Routes>
-                <GlobalFooter />
-              </>
-            )}
-          </AccountContext.Provider>
-        </BrowserRouter>
+        </AccountContext.Provider>
       </AuthContext.Provider>
     </>
   );
