@@ -40,7 +40,6 @@ function App() {
           setIsAuthenticated,
           username,
           setUsername,
-          navigate,
         }}
       >
         <BrowserRouter>
