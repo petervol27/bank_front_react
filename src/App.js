@@ -18,6 +18,7 @@ import Transactions from './components/app/Transactions';
 import GetCard from './components/app/GetCard';
 import TakeLoan from './components/app/TakeLoan';
 import AccountContext from './AccountContext';
+import { setNavigate } from './scripts/token';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,6 +28,7 @@ function App() {
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
   useEffect(() => {
+    setNavigate(navigate);
     const token = localStorage.getItem('access_token');
     if (token) {
       setIsAuthenticated(true);
