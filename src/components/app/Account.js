@@ -27,7 +27,7 @@ function Account() {
       const details = `Withdrew ₪${amount} from account`;
       await makeTransaction(action, null, amount, details, accountId);
       alert(details);
-      // setAccountBalance();
+
       setAmount('');
       fetchHistory().then((response) => {
         setTransactions(response.transactions);
@@ -40,6 +40,7 @@ function Account() {
       alert(details);
       setAmount('');
       fetchHistory().then((response) => {
+        console.log(response);
         setTransactions(response.transactions);
         setAccountId(response.account.id);
       });
