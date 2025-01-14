@@ -93,6 +93,7 @@ export const loanRequest = async (newLoan) => {
     alert('sorry you already have an active loan');
     return;
   }
+  console.log(response.data);
   const loanAmount = response.data.amount;
   alert(`${loanAmount} is being transfered to your account now!`);
 };

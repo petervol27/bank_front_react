@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import AuthContext from '../../AuthContext';
 
 function Header({ buttonText, linkPath }) {
-  const { username, setUsername } = useContext(AuthContext);
+  const { username } = useContext(AuthContext);
   return (
     <div className="ms-3 mt-3 text-purple d-flex justify-content-between align-items-center user-info">
       <h1>
