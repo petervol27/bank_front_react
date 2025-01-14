@@ -19,7 +19,6 @@ function Cards() {
       setCard(response);
     });
     fetchCardHistory().then((response) => {
-      console.log(response);
       if (response === '') {
         return;
       }

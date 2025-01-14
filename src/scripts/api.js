@@ -1,17 +1,14 @@
 // General + imports
+import axios from 'axios';
 import axiosInstance from './token';
-
+const HOST = 'https://bank-zdpd.onrender.com/';
 export const capitalize = (word) =>
   word.charAt(0).toUpperCase() + word.slice(1);
-
-// const tokenHeader = {
-//   headers: { Authorization: `Bearer ${access}` },
-// };
 
 // -------------------------------------------------------------
 // Branches
 export const getBranches = async () => {
-  const res = await axiosInstance.get(`accounts/branches/`);
+  const res = await axios.get(`${HOST}accounts/branches/`);
   return res.data;
 };
 
@@ -20,7 +17,7 @@ export const getBranches = async () => {
 export const login = async (username, password) => {
   const newUser = { username: username, password: password };
   try {
-    const res = await axiosInstance.post(`users/login/`, newUser);
+    const res = await axios.post(`${HOST}users/login/`, newUser);
     return res.data;
   } catch (error) {
     return error;
@@ -29,8 +26,8 @@ export const login = async (username, password) => {
 
 export const register = async (newUser) => {
   try {
-    await axiosInstance.post(`users/register/`, newUser);
-    const loginResponse = await axiosInstance.post(`users/login/`, {
+    await axios.post(`users/register/`, newUser);
+    const loginResponse = await axios.post(`${HOST}users/login/`, {
       username: newUser.username,
       password: newUser.password,
     });
