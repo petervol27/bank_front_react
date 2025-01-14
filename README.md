@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+# React Bank
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is my bank application
 
-## Available Scripts
+## Main
 
-In the project directory, you can run:
+The main part includes a few pages with about section , contact form, register and login, as well as the branches which are retrieved from the backend 
 
-### `npm start`
+### App
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The application includes the my account which has the balance a deposit and withdraw form , a make transactions button which goes to the transactions component, a my loans page and a my cards page.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Account:
+The header with the full name and a greeting, the account balance and the deposit withdraw form, history which shows all transactions their date the amount and the balance if you click on one it gives you the details.
 
-### `npm test`
+### My loans
+Has a loan page which shows no loan if you haven't taken a loan , a take a loan button which goes to a form that let's you take a loan which then updates the loan page, with the loan information.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### My Cards
+A page where there is a credit card and it's history, a get card button which transfers you to a form that let's you pick a manufactorer a date and the credit limit, once taken you get the card information as well as the history of the card use.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Transactions
+the most important page, here you can choose which type of transaction you would like to do, salary which let's you input an employer name and amount, a transfer which let's you choose any other account in the application and let's you transfer money to that account, Payment which is a form that let's you choose to pay for a loan or the credit card, and the pay with card which let's you use the credit card
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Notes
+I used axiosInstance which defines the token and the main url, then if a request fails it checks the token and refreshes it until the refresh token no longer works, then you are logged out of the service, the access token lives for 5 minutes and the refresh for 20 minutes.
