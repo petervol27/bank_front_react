@@ -96,6 +96,7 @@ export const loanRequest = async (newLoan) => {
   console.log(response.data);
   const loanAmount = response.data.amount;
   alert(`${loanAmount} is being transfered to your account now!`);
+  return loanAmount
 };
 // -------------------------------------------------------------
 // Credit

@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Header from './Header';
 import { loanRequest } from '../../scripts/api';
 import { useNavigate } from 'react-router-dom';
+import AccountContext from '../../AccountContext';
 
 function TakeLoan() {
   const navigate = useNavigate();
   const [payments, setPayments] = useState(6);
   const [amount, setAmount] = useState('');
+  const { setAccountBalance } = useContext(AccountContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const newLoan = { amount: amount, payments: payments };
