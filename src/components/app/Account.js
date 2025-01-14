@@ -8,7 +8,7 @@ function Account() {
   const navigate = useNavigate();
   const { accountNum } = useContext(AccountContext);
   const { accountBranch } = useContext(AccountContext);
-  const { accountBalance } = useContext(AccountContext);
+  const { accountBalance, setAccountBalance } = useContext(AccountContext);
   const [transactions, setTransactions] = useState([]);
   const [accountId, setAccountId] = useState('');
   const [amount, setAmount] = useState('');
@@ -27,6 +27,7 @@ function Account() {
       const details = `Withdrew ₪${amount} from account`;
       await makeTransaction(action, null, amount, details, accountId);
       alert(details);
+      // setAccountBalance();
       setAmount('');
       fetchHistory().then((response) => {
         setTransactions(response.transactions);

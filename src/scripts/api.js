@@ -26,7 +26,7 @@ export const login = async (username, password) => {
 
 export const register = async (newUser) => {
   try {
-    await axios.post(`users/register/`, newUser);
+    await axios.post(`${HOST}users/register/`, newUser);
     const loginResponse = await axios.post(`${HOST}users/login/`, {
       username: newUser.username,
       password: newUser.password,
