@@ -45,12 +45,12 @@ function TransactionForm({ type, onFormSubmit }) {
         account.id
       );
       details = `Transaction Type: Transfer Recipient Account: ${selectedAccount.fname} ${selectedAccount.lname} Amount: ₪${amount}`;
-      setAccountBalance(Number(accountBalance) - Number(amount)).toFixed(2);
+      setAccountBalance((Number(accountBalance) - Number(amount)).toFixed(2));
     } else if (type === 'salary') {
       const transactionDetails = `Salary from ${employerName} with a sum of ₪${amount}`;
       await makeTransaction(type, account.id, amount, transactionDetails);
       details = `Transaction Type: Salary Employer Name: ${employerName} Amount: ₪${amount}`;
-      setAccountBalance(Number(accountBalance) + Number(amount)).toFixed(2);
+      setAccountBalance((Number(accountBalance) + Number(amount)).toFixed(2));
     } else if (type === 'credit_usage') {
       const transactionDetails = `Used card for ${description}, amount: ₪${amount}`;
       const response = await cardUse(amount, transactionDetails);
@@ -81,7 +81,7 @@ function TransactionForm({ type, onFormSubmit }) {
         return;
       }
       details = `Transaction Type: Payment ,Payment Type: ${paymentType} , Amount: ₪${amount}`;
-      setAccountBalance(Number(accountBalance) - Number(amount)).toFixed(2);
+      setAccountBalance((Number(accountBalance) - Number(amount)).toFixed(2));
     }
     onFormSubmit(details);
   };

@@ -11,7 +11,7 @@ function Transactions() {
   const handleTransactionType = (e) => {
     setTransactionType(e.target.value);
   };
-  const { username, setUsername } = useContext(AuthContext);
+  const { username } = useContext(AuthContext);
   const [modalContent, setModalContent] = useState('');
   const [showModal, setShowModal] = useState(false);
   const modalRef = useRef(null);
