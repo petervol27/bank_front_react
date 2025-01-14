@@ -13,6 +13,10 @@ function TakeLoan() {
     e.preventDefault();
     const newLoan = { amount: amount, payments: payments };
     loanRequest(newLoan).then((response) => {
+      if (response.failure) {
+        navigate('/loans');
+        return;
+      }
       setAccountBalance((Number(accountBalance) + Number(response)).toFixed(2));
       navigate('/loans');
     });
