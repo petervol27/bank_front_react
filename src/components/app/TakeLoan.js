@@ -13,6 +13,7 @@ function TakeLoan() {
     e.preventDefault();
     const newLoan = { amount: amount, payments: payments };
     loanRequest(newLoan).then((response) => {
+      console.log(response);
       if (response.failure) {
         navigate('/loans');
         return;

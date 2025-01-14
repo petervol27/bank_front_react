@@ -91,7 +91,7 @@ export const loanRequest = async (newLoan) => {
   const response = await axiosInstance.post(`loans/request_loan/`, newLoan);
   if (response.data.failure) {
     alert('sorry you already have an active loan');
-    return;
+    return response.data;
   }
   const loanAmount = response.data.amount;
   alert(`${loanAmount} is being transfered to your account now!`);
