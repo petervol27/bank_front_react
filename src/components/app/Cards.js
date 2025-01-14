@@ -19,6 +19,7 @@ function Cards() {
       setCard(response);
     });
     fetchCardHistory().then((response) => {
+      console.log(response);
       setCardHistory(response);
     });
   }, []);
