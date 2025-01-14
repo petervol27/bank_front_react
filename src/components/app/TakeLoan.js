@@ -8,12 +8,12 @@ function TakeLoan() {
   const navigate = useNavigate();
   const [payments, setPayments] = useState(6);
   const [amount, setAmount] = useState('');
-  const { setAccountBalance } = useContext(AccountContext);
+  const { accountBalance, setAccountBalance } = useContext(AccountContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const newLoan = { amount: amount, payments: payments };
     loanRequest(newLoan).then((response) => {
-      console.log(response);
+      setAccountBalance(accountBalance + response);
       navigate('/loans');
     });
   };

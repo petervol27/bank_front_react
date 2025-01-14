@@ -49,10 +49,10 @@ axiosInstance.interceptors.response.use(
         )}`;
         return axiosInstance(config);
       } catch (refreshError) {
+        window.location.href = '/';
         alert('Session expired. Please log in again.');
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        window.location.href = '/';
 
         return Promise.reject(refreshError);
       }
