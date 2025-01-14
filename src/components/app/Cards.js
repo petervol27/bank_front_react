@@ -20,6 +20,9 @@ function Cards() {
     });
     fetchCardHistory().then((response) => {
       console.log(response);
+      if (response === '') {
+        return;
+      }
       setCardHistory(response);
     });
   }, []);
